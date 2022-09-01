@@ -1,0 +1,9 @@
+com.example.yxy.service.one.UploadCDNService=\
+  com.example.yxy.service.one.impl.QiyiCDNServiceImpl,\
+  com.example.yxy.service.one.impl.ChinaNetCDNImpl
+
+com.example.yxy.service.three.ScoreService=\
+  com.example.yxy.service.three.impl.ScoreServiceImpl
+
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.example.yxy.service.two.impl.UserServiceImpl
