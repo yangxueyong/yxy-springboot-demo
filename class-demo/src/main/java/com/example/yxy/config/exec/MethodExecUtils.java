@@ -89,7 +89,6 @@ public class MethodExecUtils {
         if (context == null) {
             return null;
         }
-        //通过注解获取bean
         String[] beanDefinitionNames = context.getBeanDefinitionNames();
         if (beanDefinitionNames == null) {
             return null;

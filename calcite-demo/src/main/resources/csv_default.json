@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "defaultSchema": "csv",
+  "schemas": [
+    {
+      "name": "csv",
+      "type": "custom",
+      "factory": "org.apache.calcite.adapter.csv.CsvSchemaFactory",
+      "operand": {
+        "directory": "/Users/yxy/work/java/demo/yxy-springboot-demo/yxy-springboot-demo/calcite-demo/src/main/resources/csv_dir"
+      }
+    }
+  ]
+}
