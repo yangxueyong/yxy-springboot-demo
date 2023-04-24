@@ -15,7 +15,7 @@ public class TestService {
     public static final Properties CONFIG = new Properties();
     private Connection csvConn;
 
-    private Connection mysqlConn;
+    private Connection mcsqlConn;
 
 
     @PostConstruct
@@ -26,9 +26,9 @@ public class TestService {
         csvConn = DriverManager.getConnection("jdbc:calcite:",config);
 
         config = new Properties();
-        config.put("model", TestService.class.getClassLoader().getResource("mc_default.json").getPath());
+        config.put("model", DefaultService.class.getClassLoader().getResource("mc_default.json").getPath());
         config.put("caseSensitive", "false");
-        mysqlConn = DriverManager.getConnection("jdbc:calcite:",config);
+        mcsqlConn = DriverManager.getConnection("jdbc:calcite:",config);
     }
 
 
@@ -43,13 +43,43 @@ public class TestService {
 //        }
 //    }
 
+
+//    user3
+
+    public void insertWhite() throws Exception {
+        List<String> sqlList = new ArrayList<>();
+        sqlList.add("insert into mysql.user3(id,name) values('a','zhangsan')");
+//        sqlList.add("insert into mysql.user3(id,name) select 客户号,客户姓名 from csv.csv_white c where c.客户号 is not null and c.客户号 <> '' ");
+//        sqlList.add("select * from csv.csv_white where 客户号 is null or 客户姓名 is null or 客户号 = '' ");
+        for (String sql : sqlList) {
+            System.out.println("-----------------");
+            System.out.println(sql);
+            Statement statement = mcsqlConn.createStatement();
+            try {
+                int i = statement.executeUpdate(sql);
+                System.out.println("i->" + i);
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally {
+                statement.close();
+            }
+        }
+    }
+
     public void queryByWhite() throws Exception {
         List<String> sqlList = new ArrayList<>();
         sqlList.add("select * from csv.csv_white where 客户号 is null or 客户姓名 is null or 客户号 = '' ");
         for (String sql : sqlList) {
             System.out.println("-----------------");
             System.out.println(sql);
-            printResultSet(csvConn.createStatement().executeQuery(sql));
+            Statement statement = csvConn.createStatement();
+            try {
+                printResultSet(statement.executeQuery(sql));
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally {
+                statement.close();
+            }
         }
     }
 
@@ -64,7 +94,14 @@ public class TestService {
         for (String sql : sqlList) {
             System.out.println("-----------------");
             System.out.println(sql);
-            printResultSet(csvConn.createStatement().executeQuery(sql));
+            Statement statement = csvConn.createStatement();
+            try {
+                printResultSet(statement.executeQuery(sql));
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally {
+                statement.close();
+            }
         }
     }
  

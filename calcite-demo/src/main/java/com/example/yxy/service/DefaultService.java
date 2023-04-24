@@ -46,7 +46,14 @@ public class DefaultService {
             System.out.println("-----------------");
             System.out.println(sql);
             long t1 = System.currentTimeMillis();
-            printResultSet(mcsqlConn.createStatement().executeQuery(sql));
+            Statement statement = mcsqlConn.createStatement();
+            try {
+                printResultSet(statement.executeQuery(sql));
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally {
+                statement.close();
+            }
             long t2 = System.currentTimeMillis();
             System.out.println("耗时->" + (t2 - t1));
         }
@@ -59,7 +66,14 @@ public class DefaultService {
             System.out.println("-----------------");
             System.out.println(sql);
             long t1 = System.currentTimeMillis();
-            printResultSet(mcsqlConn.createStatement().executeQuery(sql));
+            Statement statement = mcsqlConn.createStatement();
+            try {
+                printResultSet(statement.executeQuery(sql));
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally {
+                statement.close();
+            }
             long t2 = System.currentTimeMillis();
             System.out.println("耗时->" + (t2 - t1));
         }
@@ -71,7 +85,14 @@ public class DefaultService {
         for (String sql : sqlList) {
             System.out.println("-----------------");
             System.out.println(sql);
-            printResultSet(mysqlConn.createStatement().executeQuery(sql));
+            Statement statement = mysqlConn.createStatement();
+            try {
+                printResultSet(statement.executeQuery(sql));
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally {
+                statement.close();
+            }
         }
     }
 
@@ -84,7 +105,14 @@ public class DefaultService {
         for (String sql : sqlList) {
             System.out.println("-----------------");
             System.out.println(sql);
-            printResultSet(csvConn.createStatement().executeQuery(sql));
+            Statement statement = csvConn.createStatement();
+            try {
+                printResultSet(statement.executeQuery(sql));
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally {
+                statement.close();
+            }
         }
     }
 
@@ -99,7 +127,14 @@ public class DefaultService {
         for (String sql : sqlList) {
             System.out.println("-----------------");
             System.out.println(sql);
-            printResultSet(csvConn.createStatement().executeQuery(sql));
+            Statement statement = csvConn.createStatement();
+            try {
+                printResultSet(statement.executeQuery(sql));
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally {
+                statement.close();
+            }
         }
     }
  

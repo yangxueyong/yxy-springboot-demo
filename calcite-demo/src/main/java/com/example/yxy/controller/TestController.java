@@ -22,4 +22,11 @@ public class TestController {
         testService.queryByWhite();
         return "ok";
     }
+
+    @RequestMapping("/insertWhite")
+    private String insertWhite() throws Exception {
+        testService.insertWhite();
+        return "ok";
+    }
+//
 }
