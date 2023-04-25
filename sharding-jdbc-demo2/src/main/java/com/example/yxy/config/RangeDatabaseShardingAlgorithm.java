@@ -1,6 +1,7 @@
 package com.example.yxy.config;
 
 import com.google.common.collect.Range;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shardingsphere.api.sharding.standard.RangeShardingAlgorithm;
 import org.apache.shardingsphere.api.sharding.standard.RangeShardingValue;
 
@@ -12,6 +13,7 @@ import java.util.Collection;
  * 库范围分片算法
  *
  */
+@Slf4j
 public class RangeDatabaseShardingAlgorithm implements RangeShardingAlgorithm<String> {
  
 	/**
@@ -26,11 +28,22 @@ public class RangeDatabaseShardingAlgorithm implements RangeShardingAlgorithm<St
 										 RangeShardingValue<String> rangeShardingValue) {
 		ArrayList<String> result = new ArrayList<>();
 		Range<String> range = rangeShardingValue.getValueRange();
+
 		// 起始年和结束年
-		int startYear = ShardingAlgorithmUtil.getYearByStr(range.lowerEndpoint());
-		int endYear = ShardingAlgorithmUtil.getYearByStr(range.upperEndpoint());
-		theSameYear(startYear, availableTargetNames, result);
-		theSameYear(endYear, availableTargetNames, result);
+		if(range.hasLowerBound()) {
+			int startYear = ShardingAlgorithmUtil.getYearByStr(range.lowerEndpoint());
+			log.info("startYear->{}",startYear);
+			theSameYear(startYear, availableTargetNames, result);
+		}
+
+		if(range.hasUpperBound()) {
+			int endYear = ShardingAlgorithmUtil.getYearByStr(range.upperEndpoint());
+			log.info("endYear->{}",endYear);
+			theSameYear(endYear, availableTargetNames, result);
+		}
+		if(result.size() == 0){
+			return availableTargetNames;
+		}
 		return result;
 	}
  

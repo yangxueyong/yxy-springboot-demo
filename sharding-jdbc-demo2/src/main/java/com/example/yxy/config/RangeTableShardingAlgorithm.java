@@ -23,9 +23,15 @@ public class RangeTableShardingAlgorithm implements RangeShardingAlgorithm<Strin
 	public Collection<String> doSharding(Collection<String> availableTargetNames,
 										 RangeShardingValue<String> rangeShardingValue) {
 		Range<String> range = rangeShardingValue.getValueRange();
-		int startMillisecond = range.lowerEndpoint().hashCode();
-		int endMillisecond = range.upperEndpoint().hashCode();
-		return getMonthBetween(startMillisecond, endMillisecond, availableTargetNames);
+		int startHashCode = 0;
+		if(range.hasLowerBound()) {
+			startHashCode = range.lowerEndpoint().hashCode();
+		}
+		int endHashCode = 99;
+		if(range.hasUpperBound()) {
+			endHashCode = range.upperEndpoint().hashCode();
+		}
+		return getMonthBetween(startHashCode, endHashCode, availableTargetNames);
 	}
  
 	/**

@@ -29,7 +29,7 @@ public class PreciseDatabaseShardingAlgorithm implements PreciseShardingAlgorith
 		int nowYear = LocalDate.now().getYear();
 		// 库后缀
 		int dateYear = ShardingAlgorithmUtil.getYearByStr(value);
-		//如果目标年比当前时间小
+		//如果目标年比当前时间小 就去历史库看
 		if(dateYear < nowYear){
 			for (String availableTargetName : availableTargetNames) {
 				if (availableTargetName.contains("his")) {

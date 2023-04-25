@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.yxy.mapper.RedAccountMapper">
+  <resultMap id="BaseResultMap" type="com.example.yxy.entity.RedAccount">
+    <id column="RED_ACT_NO" jdbcType="VARCHAR" property="redActNo" />
+    <result column="ACCT_NO" jdbcType="VARCHAR" property="acctNo" />
+    <result column="ACT_TYPE" jdbcType="VARCHAR" property="actType" />
+    <result column="MER_NO" jdbcType="VARCHAR" property="merNo" />
+    <result column="ACT_NO" jdbcType="VARCHAR" property="actNo" />
+    <result column="MAIN_PRO_NO" jdbcType="VARCHAR" property="mainProNo" />
+    <result column="SUB_PRO_NO" jdbcType="VARCHAR" property="subProNo" />
+    <result column="PROD_QUOTA" jdbcType="DECIMAL" property="prodQuota" />
+    <result column="USE_QUOTA" jdbcType="DECIMAL" property="useQuota" />
+    <result column="TRAN_DAY" jdbcType="VARCHAR" property="tranDay" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List">
+    RED_ACT_NO, ACCT_NO, ACT_TYPE, MER_NO, ACT_NO, MAIN_PRO_NO, SUB_PRO_NO, PROD_QUOTA, USE_QUOTA, TRAN_DAY, CREATE_TIME
+  </sql>
+
+  <select id="selectByKey" parameterType="com.example.yxy.entity.io.RedAccountIO" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_P_R_M_AT
+    where ACCT_NO = #{acctNo,jdbcType=VARCHAR} and TRAN_DAY=#{tranDay,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByRangeKey" parameterType="com.example.yxy.entity.io.RedAccountIO" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from T_P_R_M_AT
+    where TRAN_DAY &gt;=#{tranDay,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

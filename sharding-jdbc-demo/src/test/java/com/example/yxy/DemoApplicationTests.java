@@ -59,6 +59,24 @@ class DemoApplicationTests {
         System.out.println( bankFlow);
     }
 
+    @Test
+    void queryGeFlow() {
+//        BankFlow bankFlow = new BankFlow();
+//        bankFlow.setId(100L);
+//        bankFlow.setCreateTime(Instant.now());
+//        bankFlow.setFlowTime(Instant.now());
+//        bankFlow.setFlowId("ceshi");
+//        bankFlow.setMoney(new BigDecimal("888.88"));
+//        DateTime date = DateUtil.parse("2022-02-02", "yyyy-MM-dd");
+//        bankFlow.setShardingTime(date.getTime());
+//        bankFlowMapper.insert(bankFlow);
+
+        QueryWrapper<BankFlow> wrapper = new QueryWrapper<BankFlow>();
+        wrapper.ge("sharding_time",DateUtil.parse("2022-01-02", "yyyy-MM-dd").getTime());
+        List<BankFlow> bankFlow = bankFlowMapper.selectList(wrapper);
+        System.out.println( bankFlow);
+    }
+
 
     @Test
     void queryFlow2() {
