@@ -16,6 +16,14 @@ CREATE TABLE `T_P_R_M_AT_0` (
     `CREATE_TIME` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+CREATE TABLE `my_no_split_tab` (
+    `id` varchar(100) DEFAULT NULL,
+    `name` varchar(100) DEFAULT NULL,
+    `address` varchar(100) DEFAULT NULL,
+    `phone` varchar(100) DEFAULT NULL,
+    `remark` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 
 create table T_P_R_M_AT_1 as select * from T_P_R_M_AT_0;
 create table T_P_R_M_AT_2 as select * from T_P_R_M_AT_0;

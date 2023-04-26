@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  * 库精确分片算法
- *
+ * 例如 select  * from tab where time='2023-10-10'
  */
 public class PreciseDatabaseShardingAlgorithm implements PreciseShardingAlgorithm<String> {
  

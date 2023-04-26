@@ -7,6 +7,12 @@ import lombok.Data;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * 这个表做了分表
+ *
+ * @author yxy
+ * @date 2023/04/26
+ */
 @Data
 @TableName(value = "T_P_R_M_AT")
 public class RedAccount {

@@ -24,6 +24,7 @@ public class PreciseTableShardingAlgorithm implements PreciseShardingAlgorithm<S
 		String value = shardingValue.getValue();
 
 		int valHashCode = value.hashCode();
+		//此处按照value的openid % 100的正余数来分表
 		int remainder = Math.floorMod(valHashCode, 100);
 
 		for (String availableTargetName : availableTargetNames) {

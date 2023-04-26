@@ -1,8 +1,10 @@
 package com.example.yxy;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.yxy.entity.MyNoSplitTab;
 import com.example.yxy.entity.RedAccount;
 import com.example.yxy.entity.io.RedAccountIO;
+import com.example.yxy.mapper.MyNoSplitTabMapper;
 import com.example.yxy.mapper.RedAccountMapper;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.annotation.MapperScan;
@@ -19,9 +21,11 @@ class DemoApplicationTests {
  
     @Autowired
     private RedAccountMapper redAccountMapper;
+    @Autowired
+    private MyNoSplitTabMapper myNoSplitTabMapper;
 
     /**
-     * 保存交易数据
+     * 保存数据到交易库
      */
     @Test
     void saveNowData() {
@@ -37,12 +41,11 @@ class DemoApplicationTests {
     }
 
     /**
-     * 保存历史数据
+     * 保存历史数据,由于没有设置AcctNo的值，所有，历史库每个表都会存储数据
      */
     @Test
     void saveHisData() {
         RedAccount redAccount = new RedAccount();
-        redAccount.setAcctNo("ashksdhfkdsf");
         redAccount.setActNo("活动号1");
         redAccount.setActType("bb");
         redAccount.setTranDay("2022-02-02");
@@ -53,18 +56,8 @@ class DemoApplicationTests {
     }
 
     /**
-     * 现在交易库数据
-     */
-    @Test
-    void queryNowData() {
-        QueryWrapper<RedAccount> wrapper = new QueryWrapper<RedAccount>();
-        wrapper.eq("ACCT_NO","kkq");
-        List<RedAccount> bankFlow = redAccountMapper.selectList(wrapper);
-        System.out.println( bankFlow);
-    }
-
-    /**
-     * 查询历史数据
+     * 按照精确分片规则 查询历史库（今年为2023年）
+     * 由于指定了时间和acctNo因此，只会精确查询一个表
      */
     @Test
     void queryHisData() {
@@ -76,7 +69,8 @@ class DemoApplicationTests {
     }
 
     /**
-     * 查询历史数据
+     * 按照精确分片规则 查询历史库（今年为2023年）
+     * 由于指定了时间和acctNo因此，只会精确查询一个表
      */
     @Test
     void queryHisData2() {
@@ -88,9 +82,22 @@ class DemoApplicationTests {
     }
 
 
+    /**
+     * 根据acct_no分片规则（hashcode），会落到某个具体的表，
+     * 由于没有指定时间，因此不知道具体查询哪个库，所以两个库都会查询
+     */
+    @Test
+    void queryAccountRed() {
+        QueryWrapper<RedAccount> wrapper = new QueryWrapper<RedAccount>();
+        wrapper.eq("ACCT_NO","kkq");
+        List<RedAccount> bankFlow = redAccountMapper.selectList(wrapper);
+        System.out.println( bankFlow);
+    }
+
 
     /**
-     * 查询所有数据
+     * 按照范围分片规则 查询交易库（今年为2023年）
+     * 这个会查询交易库的所有表
      */
     @Test
     void queryAllData() {
@@ -98,6 +105,17 @@ class DemoApplicationTests {
         io.setTranDay("2023-01-01");
         List<RedAccount> redAccounts = redAccountMapper.selectByRangeKey(io);
         System.out.println( redAccounts);
+    }
+
+    /**
+     * 不走分片规则的普通表
+     */
+    @Test
+    void queryNoSplitTab() {
+        QueryWrapper<MyNoSplitTab> wrapper = new QueryWrapper<MyNoSplitTab>();
+        wrapper.eq("id","100");
+        List<MyNoSplitTab> myNoSplitTabs = myNoSplitTabMapper.selectList(wrapper);
+        System.out.println(myNoSplitTabs);
     }
 
 }
