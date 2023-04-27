@@ -108,6 +108,19 @@ class DemoApplicationTests {
     }
 
     /**
+     * 按照范围分片规则 查询交易库（今年为2023年）
+     * 这个会查询交易库的所有表
+     */
+    @Test
+    void selectByInnerJoin() {
+        RedAccountIO io = new RedAccountIO();
+        io.setTranDay("2023-01-01");
+        List<RedAccount> redAccounts = redAccountMapper.selectByInnerJoin(io);
+        System.out.println( redAccounts);
+    }
+
+
+    /**
      * 不走分片规则的普通表
      */
     @Test

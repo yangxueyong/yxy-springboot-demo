@@ -12,4 +12,6 @@ public interface RedAccountMapper extends BaseMapper<RedAccount> {
     List<RedAccount> selectByKey(RedAccountIO io);
 
     List<RedAccount> selectByRangeKey(RedAccountIO io);
+
+    List<RedAccount> selectByInnerJoin(RedAccountIO io);
 }

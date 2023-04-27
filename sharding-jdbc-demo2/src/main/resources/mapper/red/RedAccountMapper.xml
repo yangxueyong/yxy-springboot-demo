@@ -34,4 +34,11 @@
     where TRAN_DAY &gt;=#{tranDay,jdbcType=VARCHAR}
   </select>
 
+  <select id="selectByInnerJoin" parameterType="com.example.yxy.entity.io.RedAccountIO" resultMap="BaseResultMap">
+    select
+    a.*
+    from T_P_R_M_AT a inner join my_no_split_tab t on a.act_no=t.id
+    where TRAN_DAY &gt;=#{tranDay,jdbcType=VARCHAR}
+  </select>
+
 </mapper>
