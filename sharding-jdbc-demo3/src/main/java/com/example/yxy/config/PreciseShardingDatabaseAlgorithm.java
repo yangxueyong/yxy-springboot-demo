@@ -40,8 +40,8 @@ public class PreciseShardingDatabaseAlgorithm implements StandardShardingAlgorit
      */
     @Override
     public String doSharding(Collection<String> dbNames, PreciseShardingValue<String> shardingValue) {
-        log.info("Database PreciseShardingAlgorithm dbNames:{} ,preciseShardingValue: {}.", JSON.toJSONString(dbNames),
-                JSON.toJSONString(shardingValue));
+//        log.info("Database PreciseShardingAlgorithm dbNames:{} ,preciseShardingValue: {}.", JSON.toJSONString(dbNames),
+//                JSON.toJSONString(shardingValue));
  
 //        // 若走主库，直接返回主库
 //        if (dbNames.size() == 1) {

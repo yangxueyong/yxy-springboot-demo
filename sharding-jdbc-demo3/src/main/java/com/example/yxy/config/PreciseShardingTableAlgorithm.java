@@ -37,8 +37,8 @@ public class PreciseShardingTableAlgorithm implements StandardShardingAlgorithm<
     @Override
     public String doSharding(Collection<String> tableNames, PreciseShardingValue<String> preciseShardingValue) {
  
-        log.info("Table PreciseShardingAlgorithm tableNames:{} ,preciseShardingValue: {}.",
-                JSON.toJSONString(tableNames), JSON.toJSONString(preciseShardingValue));
+//        log.info("Table PreciseShardingAlgorithm tableNames:{} ,preciseShardingValue: {}.",
+//                JSON.toJSONString(tableNames), JSON.toJSONString(preciseShardingValue));
 //        // 按表数量取模
 //        // 截取用户编号倒数二三位数字，（如1234的倒数二三位为23）
 //        String num = StringUtils.substring(preciseShardingValue.getValue(), -3, -1);
