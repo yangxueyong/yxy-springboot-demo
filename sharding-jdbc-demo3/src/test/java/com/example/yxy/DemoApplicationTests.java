@@ -32,8 +32,8 @@ class DemoApplicationTests {
      * 保存数据到交易库
      */
     @Test
-    void saveNowData() {
-        for (int i = 0; i < 100; i++) {
+    void saveData() {
+        for (int i = 0; i < 10; i++) {
             System.out.println("i-->" + i);
             RedAccount redAccount = new RedAccount();
             redAccount.setAcctNo(RandomUtil.randomString(18));
@@ -108,7 +108,7 @@ class DemoApplicationTests {
      * 根据acct_no分片规则（hashcode），会落到某个具体的表，
      * 由于没有指定时间，因此不知道具体查询哪个库，所以两个库都会查询
      *
-     * 排序加分页 这里是根据时间升序排序，理论上应该是优先返回bankhis的数据，但是这里的查询会优先查询banknow 所以会优先返回banknow的数据
+     * oracle排序加分页 这里是根据时间升序排序，理论上应该是优先返回bankhis的数据，但是这里的查询会优先查询banknow 所以会优先返回banknow的数据
      */
     @Test
     void queryAccountRed() {
