@@ -17,6 +17,7 @@
     <properties>
         <java.version>1.8</java.version>
         <groovy.version>3.0.10</groovy.version>
+        <flink.version>1.15.2</flink.version>
     </properties>
     <modules>
         <module>class-demo</module>

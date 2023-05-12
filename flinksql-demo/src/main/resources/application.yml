@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    dynamic:
+      primary: mysql #\u8BBE\u7F6E\u9ED8\u8BA4\u7684\u6570\u636E\u6E90\u6216\u8005\u6570\u636E\u6E90\u7EC4,\u9ED8\u8BA4\u503C\u5373\u4E3Amaster
+      strict: false #\u4E25\u683C\u5339\u914D\u6570\u636E\u6E90,\u9ED8\u8BA4false. true\u672A\u5339\u914D\u5230\u6307\u5B9A\u6570\u636E\u6E90\u65F6\u629B\u5F02\u5E38,false\u4F7F\u7528\u9ED8\u8BA4\u6570\u636E\u6E90
+      datasource:
+        pft:
+          url: jdbc:mysql://127.0.0.1:3316/pft?autoReconnect=true&allowMultiQueries=true
+          username: root
+          password: 123456789
+          driver-class-name: com.mysql.cj.jdbc.Driver
+        market:
+          url: jdbc:mysql://127.0.0.1:3316/market?autoReconnect=true&allowMultiQueries=true
+          username: root
+          password: 123456789
+          driver-class-name: com.mysql.cj.jdbc.Driver

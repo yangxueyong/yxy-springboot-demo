@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.yxy.dao.table.MysqlTabColumnMapper">
+  <resultMap id="BaseResultMap" type="com.example.yxy.entity.table.MysqlTabColumn">
+    <result column="TABLE_NAME" jdbcType="VARCHAR" property="tableName" />
+    <result column="TABLE_SCHEMA" jdbcType="VARCHAR" property="tableSchema" />
+    <result column="COLUMN_NAME" jdbcType="VARCHAR" property="columnName" />
+    <result column="ORDINAL_POSITION" jdbcType="INTEGER" property="ordinalPosition" />
+    <result column="DATA_TYPE" jdbcType="VARCHAR" property="dataType" />
+    <result column="CHARACTER_MAXIMUM_LENGTH" jdbcType="VARCHAR" property="characterMaximumLength" />
+    <result column="CHARACTER_OCTET_LENGTH" jdbcType="VARCHAR" property="characterOctetLength" />
+    <result column="NUMERIC_PRECISION" jdbcType="VARCHAR" property="numericPrecision" />
+    <result column="NUMERIC_SCALE" jdbcType="VARCHAR" property="numericScale" />
+    <result column="COLUMN_TYPE" jdbcType="VARCHAR" property="columnType" />
+  </resultMap>
+
+
+  <select id="selectByColumn" parameterType="com.example.yxy.entity.table.io.QueryOracleFieldIO" resultMap="BaseResultMap">
+    select * from information_schema.COLUMNS c
+    WHERE upper(c.table_name)=upper(#{tableName})
+    AND upper(c.TABLE_SCHEMA)=upper(#{tableSchema})
+    <if test="fields != null">
+      and upper(c.COLUMN_NAME) in
+      <foreach collection="fields" open="(" close=")" separator="," item="item">
+        #{item}
+      </foreach>
+    </if>
+  </select>
+
+
+</mapper>

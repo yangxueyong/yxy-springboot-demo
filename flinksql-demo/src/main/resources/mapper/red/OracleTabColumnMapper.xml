@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.yxy.dao.table.OracleTabColumnMapper">
+  <resultMap id="BaseResultMap" type="com.example.yxy.entity.table.OracleTabColumn">
+    <result column="TABLE_NAME" jdbcType="VARCHAR" property="tableName" />
+    <result column="COLUMN_NAME" jdbcType="VARCHAR" property="columnName" />
+    <result column="DATA_TYPE" jdbcType="VARCHAR" property="dataType" />
+    <result column="DATA_TYPE_MOD" jdbcType="VARCHAR" property="dataTypeMod" />
+    <result column="DATA_TYPE_OWNER" jdbcType="VARCHAR" property="dataTypeOwner" />
+    <result column="DATA_LENGTH" jdbcType="DECIMAL" property="dataLength" />
+    <result column="DATA_PRECISION" jdbcType="DECIMAL" property="dataPrecision" />
+    <result column="DATA_SCALE" jdbcType="DECIMAL" property="dataScale" />
+    <result column="NULLABLE" jdbcType="VARCHAR" property="nullable" />
+    <result column="COLUMN_ID" jdbcType="DECIMAL" property="columnId" />
+    <result column="DEFAULT_LENGTH" jdbcType="DECIMAL" property="defaultLength" />
+    <result column="NUM_DISTINCT" jdbcType="DECIMAL" property="numDistinct" />
+    <result column="DENSITY" jdbcType="DECIMAL" property="density" />
+    <result column="NUM_NULLS" jdbcType="DECIMAL" property="numNulls" />
+    <result column="NUM_BUCKETS" jdbcType="DECIMAL" property="numBuckets" />
+    <result column="LAST_ANALYZED" jdbcType="TIMESTAMP" property="lastAnalyzed" />
+    <result column="SAMPLE_SIZE" jdbcType="DECIMAL" property="sampleSize" />
+    <result column="CHARACTER_SET_NAME" jdbcType="VARCHAR" property="characterSetName" />
+    <result column="CHAR_COL_DECL_LENGTH" jdbcType="DECIMAL" property="charColDeclLength" />
+    <result column="GLOBAL_STATS" jdbcType="VARCHAR" property="globalStats" />
+    <result column="USER_STATS" jdbcType="VARCHAR" property="userStats" />
+    <result column="AVG_COL_LEN" jdbcType="DECIMAL" property="avgColLen" />
+    <result column="CHAR_LENGTH" jdbcType="DECIMAL" property="charLength" />
+    <result column="CHAR_USED" jdbcType="VARCHAR" property="charUsed" />
+    <result column="V80_FMT_IMAGE" jdbcType="VARCHAR" property="v80FmtImage" />
+    <result column="DATA_UPGRADED" jdbcType="VARCHAR" property="dataUpgraded" />
+    <result column="HISTOGRAM" jdbcType="VARCHAR" property="histogram" />
+    <result column="DEFAULT_ON_NULL" jdbcType="VARCHAR" property="defaultOnNull" />
+    <result column="IDENTITY_COLUMN" jdbcType="VARCHAR" property="identityColumn" />
+    <result column="EVALUATION_EDITION" jdbcType="VARCHAR" property="evaluationEdition" />
+    <result column="UNUSABLE_BEFORE" jdbcType="VARCHAR" property="unusableBefore" />
+    <result column="UNUSABLE_BEGINNING" jdbcType="VARCHAR" property="unusableBeginning" />
+    <result column="COLLATION" jdbcType="VARCHAR" property="collation" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.example.yxy.entity.table.OracleTabColumnWithBLOBs">
+    <result column="DATA_DEFAULT" jdbcType="LONGVARCHAR" property="dataDefault" />
+    <result column="LOW_VALUE" jdbcType="VARBINARY" property="lowValue" />
+    <result column="HIGH_VALUE" jdbcType="VARBINARY" property="highValue" />
+  </resultMap>
+  <sql id="Blob_Column_List">
+    DATA_DEFAULT, LOW_VALUE, HIGH_VALUE
+  </sql>
+  <select id="selectByColumn" parameterType="com.example.yxy.entity.table.io.QueryOracleFieldIO" resultMap="BaseResultMap">
+    select * from USER_TABLE_COLUMNS c WHERE c.table_name=#{tableName}
+    <if test="fields != null">
+      and c.COLUMN_NAME in
+      <foreach collection="fields" open="(" close=")" separator="," item="item">
+        #{item}
+      </foreach>
+    </if>
+  </select>
+  <insert id="insert" parameterType="com.example.yxy.entity.table.OracleTabColumnWithBLOBs">
+    insert into USER_TAB_COLUMNS (TABLE_NAME, COLUMN_NAME, DATA_TYPE, 
+      DATA_TYPE_MOD, DATA_TYPE_OWNER, DATA_LENGTH, 
+      DATA_PRECISION, DATA_SCALE, NULLABLE, 
+      COLUMN_ID, DEFAULT_LENGTH, NUM_DISTINCT, 
+      DENSITY, NUM_NULLS, NUM_BUCKETS, 
+      LAST_ANALYZED, SAMPLE_SIZE, CHARACTER_SET_NAME, 
+      CHAR_COL_DECL_LENGTH, GLOBAL_STATS, USER_STATS, 
+      AVG_COL_LEN, CHAR_LENGTH, CHAR_USED, 
+      V80_FMT_IMAGE, DATA_UPGRADED, HISTOGRAM, 
+      DEFAULT_ON_NULL, IDENTITY_COLUMN, EVALUATION_EDITION, 
+      UNUSABLE_BEFORE, UNUSABLE_BEGINNING, COLLATION, 
+      DATA_DEFAULT, LOW_VALUE, HIGH_VALUE
+      )
+    values (#{tableName,jdbcType=VARCHAR}, #{columnName,jdbcType=VARCHAR}, #{dataType,jdbcType=VARCHAR}, 
+      #{dataTypeMod,jdbcType=VARCHAR}, #{dataTypeOwner,jdbcType=VARCHAR}, #{dataLength,jdbcType=DECIMAL}, 
+      #{dataPrecision,jdbcType=DECIMAL}, #{dataScale,jdbcType=DECIMAL}, #{nullable,jdbcType=VARCHAR}, 
+      #{columnId,jdbcType=DECIMAL}, #{defaultLength,jdbcType=DECIMAL}, #{numDistinct,jdbcType=DECIMAL}, 
+      #{density,jdbcType=DECIMAL}, #{numNulls,jdbcType=DECIMAL}, #{numBuckets,jdbcType=DECIMAL}, 
+      #{lastAnalyzed,jdbcType=TIMESTAMP}, #{sampleSize,jdbcType=DECIMAL}, #{characterSetName,jdbcType=VARCHAR}, 
+      #{charColDeclLength,jdbcType=DECIMAL}, #{globalStats,jdbcType=VARCHAR}, #{userStats,jdbcType=VARCHAR}, 
+      #{avgColLen,jdbcType=DECIMAL}, #{charLength,jdbcType=DECIMAL}, #{charUsed,jdbcType=VARCHAR}, 
+      #{v80FmtImage,jdbcType=VARCHAR}, #{dataUpgraded,jdbcType=VARCHAR}, #{histogram,jdbcType=VARCHAR}, 
+      #{defaultOnNull,jdbcType=VARCHAR}, #{identityColumn,jdbcType=VARCHAR}, #{evaluationEdition,jdbcType=VARCHAR}, 
+      #{unusableBefore,jdbcType=VARCHAR}, #{unusableBeginning,jdbcType=VARCHAR}, #{collation,jdbcType=VARCHAR}, 
+      #{dataDefault,jdbcType=LONGVARCHAR}, #{lowValue,jdbcType=VARBINARY}, #{highValue,jdbcType=VARBINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.yxy.entity.table.OracleTabColumnWithBLOBs">
+    insert into USER_TAB_COLUMNS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tableName != null">
+        TABLE_NAME,
+      </if>
+      <if test="columnName != null">
+        COLUMN_NAME,
+      </if>
+      <if test="dataType != null">
+        DATA_TYPE,
+      </if>
+      <if test="dataTypeMod != null">
+        DATA_TYPE_MOD,
+      </if>
+      <if test="dataTypeOwner != null">
+        DATA_TYPE_OWNER,
+      </if>
+      <if test="dataLength != null">
+        DATA_LENGTH,
+      </if>
+      <if test="dataPrecision != null">
+        DATA_PRECISION,
+      </if>
+      <if test="dataScale != null">
+        DATA_SCALE,
+      </if>
+      <if test="nullable != null">
+        NULLABLE,
+      </if>
+      <if test="columnId != null">
+        COLUMN_ID,
+      </if>
+      <if test="defaultLength != null">
+        DEFAULT_LENGTH,
+      </if>
+      <if test="numDistinct != null">
+        NUM_DISTINCT,
+      </if>
+      <if test="density != null">
+        DENSITY,
+      </if>
+      <if test="numNulls != null">
+        NUM_NULLS,
+      </if>
+      <if test="numBuckets != null">
+        NUM_BUCKETS,
+      </if>
+      <if test="lastAnalyzed != null">
+        LAST_ANALYZED,
+      </if>
+      <if test="sampleSize != null">
+        SAMPLE_SIZE,
+      </if>
+      <if test="characterSetName != null">
+        CHARACTER_SET_NAME,
+      </if>
+      <if test="charColDeclLength != null">
+        CHAR_COL_DECL_LENGTH,
+      </if>
+      <if test="globalStats != null">
+        GLOBAL_STATS,
+      </if>
+      <if test="userStats != null">
+        USER_STATS,
+      </if>
+      <if test="avgColLen != null">
+        AVG_COL_LEN,
+      </if>
+      <if test="charLength != null">
+        CHAR_LENGTH,
+      </if>
+      <if test="charUsed != null">
+        CHAR_USED,
+      </if>
+      <if test="v80FmtImage != null">
+        V80_FMT_IMAGE,
+      </if>
+      <if test="dataUpgraded != null">
+        DATA_UPGRADED,
+      </if>
+      <if test="histogram != null">
+        HISTOGRAM,
+      </if>
+      <if test="defaultOnNull != null">
+        DEFAULT_ON_NULL,
+      </if>
+      <if test="identityColumn != null">
+        IDENTITY_COLUMN,
+      </if>
+      <if test="evaluationEdition != null">
+        EVALUATION_EDITION,
+      </if>
+      <if test="unusableBefore != null">
+        UNUSABLE_BEFORE,
+      </if>
+      <if test="unusableBeginning != null">
+        UNUSABLE_BEGINNING,
+      </if>
+      <if test="collation != null">
+        COLLATION,
+      </if>
+      <if test="dataDefault != null">
+        DATA_DEFAULT,
+      </if>
+      <if test="lowValue != null">
+        LOW_VALUE,
+      </if>
+      <if test="highValue != null">
+        HIGH_VALUE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tableName != null">
+        #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="columnName != null">
+        #{columnName,jdbcType=VARCHAR},
+      </if>
+      <if test="dataType != null">
+        #{dataType,jdbcType=VARCHAR},
+      </if>
+      <if test="dataTypeMod != null">
+        #{dataTypeMod,jdbcType=VARCHAR},
+      </if>
+      <if test="dataTypeOwner != null">
+        #{dataTypeOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="dataLength != null">
+        #{dataLength,jdbcType=DECIMAL},
+      </if>
+      <if test="dataPrecision != null">
+        #{dataPrecision,jdbcType=DECIMAL},
+      </if>
+      <if test="dataScale != null">
+        #{dataScale,jdbcType=DECIMAL},
+      </if>
+      <if test="nullable != null">
+        #{nullable,jdbcType=VARCHAR},
+      </if>
+      <if test="columnId != null">
+        #{columnId,jdbcType=DECIMAL},
+      </if>
+      <if test="defaultLength != null">
+        #{defaultLength,jdbcType=DECIMAL},
+      </if>
+      <if test="numDistinct != null">
+        #{numDistinct,jdbcType=DECIMAL},
+      </if>
+      <if test="density != null">
+        #{density,jdbcType=DECIMAL},
+      </if>
+      <if test="numNulls != null">
+        #{numNulls,jdbcType=DECIMAL},
+      </if>
+      <if test="numBuckets != null">
+        #{numBuckets,jdbcType=DECIMAL},
+      </if>
+      <if test="lastAnalyzed != null">
+        #{lastAnalyzed,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sampleSize != null">
+        #{sampleSize,jdbcType=DECIMAL},
+      </if>
+      <if test="characterSetName != null">
+        #{characterSetName,jdbcType=VARCHAR},
+      </if>
+      <if test="charColDeclLength != null">
+        #{charColDeclLength,jdbcType=DECIMAL},
+      </if>
+      <if test="globalStats != null">
+        #{globalStats,jdbcType=VARCHAR},
+      </if>
+      <if test="userStats != null">
+        #{userStats,jdbcType=VARCHAR},
+      </if>
+      <if test="avgColLen != null">
+        #{avgColLen,jdbcType=DECIMAL},
+      </if>
+      <if test="charLength != null">
+        #{charLength,jdbcType=DECIMAL},
+      </if>
+      <if test="charUsed != null">
+        #{charUsed,jdbcType=VARCHAR},
+      </if>
+      <if test="v80FmtImage != null">
+        #{v80FmtImage,jdbcType=VARCHAR},
+      </if>
+      <if test="dataUpgraded != null">
+        #{dataUpgraded,jdbcType=VARCHAR},
+      </if>
+      <if test="histogram != null">
+        #{histogram,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultOnNull != null">
+        #{defaultOnNull,jdbcType=VARCHAR},
+      </if>
+      <if test="identityColumn != null">
+        #{identityColumn,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluationEdition != null">
+        #{evaluationEdition,jdbcType=VARCHAR},
+      </if>
+      <if test="unusableBefore != null">
+        #{unusableBefore,jdbcType=VARCHAR},
+      </if>
+      <if test="unusableBeginning != null">
+        #{unusableBeginning,jdbcType=VARCHAR},
+      </if>
+      <if test="collation != null">
+        #{collation,jdbcType=VARCHAR},
+      </if>
+      <if test="dataDefault != null">
+        #{dataDefault,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="lowValue != null">
+        #{lowValue,jdbcType=VARBINARY},
+      </if>
+      <if test="highValue != null">
+        #{highValue,jdbcType=VARBINARY},
+      </if>
+    </trim>
+  </insert>
+</mapper>
