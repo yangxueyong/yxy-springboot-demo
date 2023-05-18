@@ -100,6 +100,11 @@ class DemoApplicationTests {
         new DemoApplicationTests().getTable2();
     }
 
+    /**
+     * 得到sql语句中的所有表
+     *
+     * @throws SqlParseException sql解析异常
+     */
     @Test
     void getTable2() throws SqlParseException {
         // 创建Calcite的Schema对象
@@ -220,6 +225,9 @@ class DemoApplicationTests {
         System.out.println(sqlNode.toSqlString(OracleSqlDialect.DEFAULT));
     }
 
+    /**
+     * 将sql拆解为笛卡尔积sql
+     */
     @Test
     void getSqlNode2() {
         // 解析配置 - mysql设置
@@ -245,6 +253,9 @@ class DemoApplicationTests {
         List<String> sqls = new ArrayList<>();
         for (SqlNode operand : operands) {
             getSqlNode(operand, sqls);
+        }
+        for (String sql : sqls) {
+            System.out.println("sql->" + sql);
         }
         // 还原某个方言的SQL
         System.out.println(sqlNode.toSqlString(OracleSqlDialect.DEFAULT));
