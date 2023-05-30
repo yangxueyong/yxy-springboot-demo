@@ -16,4 +16,8 @@ public class StringUtil {
     public static boolean contains(String s1,String s2){
         return s1.contains(s2);
     }
+
+    public static int getStrLength(String str){
+        return str.length();
+    }
 }
