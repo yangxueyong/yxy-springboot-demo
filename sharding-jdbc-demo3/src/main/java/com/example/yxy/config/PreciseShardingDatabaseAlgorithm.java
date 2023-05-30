@@ -21,16 +21,6 @@ import java.util.Properties;
 @Slf4j
 public class PreciseShardingDatabaseAlgorithm implements StandardShardingAlgorithm<String> {
  
-//    // 主库别名
-//    private static final String DBM = "dbm";
-//
-//    private static int dataBaseSize;
-//
-//    @Value("${dataBaseSize}")
-//    public void setDataBaseSize(int size) {
-//        dataBaseSize = size;
-//    }
- 
     /**
      * @description: 分库策略，按用户编号最后一位数字对数据库数量取模
      *
@@ -40,29 +30,6 @@ public class PreciseShardingDatabaseAlgorithm implements StandardShardingAlgorit
      */
     @Override
     public String doSharding(Collection<String> dbNames, PreciseShardingValue<String> shardingValue) {
-//        log.info("Database PreciseShardingAlgorithm dbNames:{} ,preciseShardingValue: {}.", JSON.toJSONString(dbNames),
-//                JSON.toJSONString(shardingValue));
- 
-//        // 若走主库，直接返回主库
-//        if (dbNames.size() == 1) {
-//            Iterator<String> iterator = dbNames.iterator();
-//            String dbName = iterator.next();
-//            if (DBM.equals(dbName)) {
-//                return DBM;
-//            }
-//        }
-//
-//        // 按数据库数量取模
-//        String num = StringUtils.substring(preciseShardingValue.getValue(), -1);
-//        int mod = Integer.parseInt(num) % dataBaseSize;
-//        for (String dbName : dbNames) {
-//            // 分库的规则
-//            if (dbName.endsWith(String.valueOf(mod))) {
-//                return dbName;
-//            }
-//        }
-//        throw new UnsupportedOperationException();
-
         // 分片键值
         String value = shardingValue.getValue();
         int nowYear = LocalDate.now().getYear();

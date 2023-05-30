@@ -19,14 +19,7 @@ import java.util.Properties;
 @Slf4j
 public class PreciseShardingTableAlgorithm implements StandardShardingAlgorithm<String> {
  
-    // 分表数量
-//    private static int tableSize;
-//
-//    @Value("${tableSize}")
-//    public void setTableSize(int size) {
-//        tableSize = size;
-//    }
- 
+
     /**
      * @description: 分表策略，按用户编号倒数二三位数字对数据库表数量取模
      *
@@ -36,21 +29,6 @@ public class PreciseShardingTableAlgorithm implements StandardShardingAlgorithm<
      */
     @Override
     public String doSharding(Collection<String> tableNames, PreciseShardingValue<String> preciseShardingValue) {
- 
-//        log.info("Table PreciseShardingAlgorithm tableNames:{} ,preciseShardingValue: {}.",
-//                JSON.toJSONString(tableNames), JSON.toJSONString(preciseShardingValue));
-//        // 按表数量取模
-//        // 截取用户编号倒数二三位数字，（如1234的倒数二三位为23）
-//        String num = StringUtils.substring(preciseShardingValue.getValue(), -3, -1);
-//        int mod = Integer.parseInt(num) % tableSize;
-//        for (String tableName : tableNames) {
-//            // 分表的规则
-//            if (tableName.endsWith(String.valueOf(mod))) {
-//                return tableName;
-//            }
-//        }
-//        throw new UnsupportedOperationException();
-
         // 分片键值
         String value = preciseShardingValue.getValue();
 
