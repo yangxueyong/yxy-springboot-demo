@@ -1,0 +1,1 @@
+{"flinkExecSqlPath":"/Users/yxy/work/java/demo/yxy-springboot-demo/yxy-springboot-demo/flinksql-demo/src/main/resources/real_flink_exec.sql","flinkInitSqlPath":"/Users/yxy/work/java/demo/yxy-springboot-demo/yxy-springboot-demo/flinksql-demo/src/main/resources/real_flink_init.sql","jobName":"测试实时交易","jobType":"111","parallelism":1,"runType":"flink-stream"}

@@ -1,0 +1,19 @@
+#创建topic
+bin/kafka-topics.sh --create --topic test_kafka_cust_red_money --replication-factor 1 --partitions 2 --zookeeper localhost:2181
+
+#发送测试消息
+bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test_kafka_cust_red_money
+{"cust_no":"zhangsan","trade_money":12,"trade_channel":"wx","trade_time":"2023-01-01 10:10:01"}
+{"cust_no":"zhangsan","trade_money":10,"trade_channel":"wx","trade_time":"2023-01-01 10:10:07"}
+{"cust_no":"lisi","trade_money":15,"trade_channel":"zfb","trade_time":"2023-01-01 10:11:01"}
+{"cust_no":"lisi","trade_money":15,"trade_channel":"wx","trade_time":"2023-01-01 10:11:02"}
+{"cust_no":"wangwu","trade_money":100,"trade_channel":"jd","trade_time":"2023-01-01 10:11:03"}
+{"cust_no":"wangwu","trade_money":15,"trade_channel":"wx","trade_time":"2023-01-01 10:12:05"}
+{"cust_no":"wangwu","trade_money":15,"trade_channel":"wx","trade_time":"2023-01-02 10:12:05"}
+{"cust_no":"wangwu","trade_money":15,"trade_channel":"wx","trade_time":"2023-01-02 10:12:07"}
+
+#消费测试消息
+bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test_kafka_cust_red_money
+
+
+

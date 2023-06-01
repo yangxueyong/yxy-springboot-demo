@@ -9,6 +9,7 @@ import com.example.yxy.entity.table.OracleTabColumn;
 import com.example.yxy.entity.table.TabColumn;
 import com.example.yxy.entity.table.io.QueryOracleFieldIO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -22,6 +23,7 @@ public class CustomColumnService {
     @Autowired
     private MysqlTabColumnMapper mysqlTabColumnMapper;
     @Autowired
+    @Lazy
     private CustomColumnService customColumnService;
 
     @DS("pft-oracle")
