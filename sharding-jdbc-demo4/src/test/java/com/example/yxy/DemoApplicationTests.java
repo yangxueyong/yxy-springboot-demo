@@ -141,6 +141,7 @@ class DemoApplicationTests {
     void selectByInnerJoin() {
         RedAccountIO io = new RedAccountIO();
         io.setTranDay("2023-01-01");
+        io.setAcctNo("abccc");
         List<RedAccount> redAccounts = redAccountMapper.selectByInnerJoin(io);
         System.out.println( redAccounts);
     }
@@ -152,7 +153,8 @@ class DemoApplicationTests {
     @Test
     void selectByInnerJoinPage() {
         RedAccountIO io = new RedAccountIO();
-        io.setTranDay("2023-01-01");
+        io.setTranDay("2023-05-05");
+        io.setAcctNo("ocx283ej536tn5erue");
         PageHelper.startPage(1, 3);
         List<RedAccount> redAccounts = redAccountMapper.selectByInnerJoin(io);
         System.out.println( redAccounts);
