@@ -29,4 +29,8 @@ public class StringUtil {
         return 0;
     }
 
+    public static int c(){
+        return 0;
+    }
+
 }
