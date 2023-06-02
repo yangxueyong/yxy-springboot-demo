@@ -279,7 +279,7 @@ class DemoApplicationTests {
     private FlinkJobClientUtil flinkJobClientUtil;
 
     /**
-     * 元数据为表
+     * 使用jar包提交任务
      * 将结果数据保存到表
      */
     @Test

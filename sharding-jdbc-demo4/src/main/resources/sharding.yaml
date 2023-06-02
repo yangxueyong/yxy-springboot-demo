@@ -1,0 +1,41 @@
+dataSources:
+  bankhis:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://127.0.0.1:3306/bank_his?autoReconnect=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: 123456789
+  banknow:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://127.0.0.1:3306/bank_now?autoReconnect=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: 123456789
+
+rules:
+  - !SHARDING
+    tables:
+      T_P_R_M_AT:
+        actualDataNodes: banknow.T_P_R_M_AT_${0..99},bankhis.T_P_R_M_AT_${0..99}
+        tableStrategy:
+          standard:
+            shardingColumn: ACCT_NO
+            shardingAlgorithmName: table_precise_sharding
+    defaultDatabaseStrategy:
+      standard:
+        shardingColumn: TRAN_DAY
+        shardingAlgorithmName: database_precise_sharding
+    shardingAlgorithms:
+      database_precise_sharding:
+        type: CLASS_BASED
+        props:
+          algorithmClassName: com.example.yxy.config.PreciseShardingDatabaseAlgorithm
+          strategy: STANDARD
+      table_precise_sharding:
+        type: CLASS_BASED
+        props:
+          algorithmClassName: com.example.yxy.config.PreciseShardingTableAlgorithm
+          strategy: STANDARD
+
+props:
+  sql-show: true
