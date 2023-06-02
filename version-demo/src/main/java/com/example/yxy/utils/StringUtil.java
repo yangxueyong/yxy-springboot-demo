@@ -20,4 +20,8 @@ public class StringUtil {
     public static int getStrLength(String str){
         return str.length();
     }
+
+    public static int a(){
+        return 0;
+    }
 }
