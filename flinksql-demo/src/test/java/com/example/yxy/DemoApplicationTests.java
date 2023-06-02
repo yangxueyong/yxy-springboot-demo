@@ -39,7 +39,11 @@ class DemoApplicationTests {
                 "   'url' = 'jdbc:mysql://127.0.0.1:3316/test_flink?useSSL=false&serverTimezone=Asia/Shanghai&allowMultiQueries=true&allowPublicKeyRetrieval=true',\n" +
                 "   'table-name' = 't_p_cust_deposit_prod',\n" +
                 "   'username'='root',\n" +
-                "   'password'='123456789'\n" +
+                "   'password'='123456789'" +
+//                "   ,'scan.partition.column'='auto_id'" +
+//                "   ,'scan.partition.num'='2'" +
+//                "   ,'scan.partition.lower-bound'='1'" +
+//                "   ,'scan.partition.upper-bound'='4'\n" +
                 ")";
         tenv.executeSql(sql1);
 
