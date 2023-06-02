@@ -24,4 +24,9 @@ public class StringUtil {
     public static int a(){
         return 0;
     }
+
+    public static int b(){
+        return 0;
+    }
+
 }
