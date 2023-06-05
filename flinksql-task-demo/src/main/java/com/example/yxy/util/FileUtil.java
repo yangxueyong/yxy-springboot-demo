@@ -1,4 +1,4 @@
-package com.cqrcb.cloud.util;
+package com.example.yxy.util;
 
 import cn.hutool.core.io.file.FileReader;
 import cn.hutool.json.JSONUtil;

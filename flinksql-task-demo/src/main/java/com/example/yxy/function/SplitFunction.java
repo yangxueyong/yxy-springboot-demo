@@ -1,4 +1,4 @@
-package com.cqrcb.cloud.function;
+package com.example.yxy.function;
 
 import org.apache.flink.table.annotation.DataTypeHint;
 import org.apache.flink.table.annotation.FunctionHint;

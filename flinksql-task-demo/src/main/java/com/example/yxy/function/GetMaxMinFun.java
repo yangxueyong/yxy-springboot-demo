@@ -1,4 +1,4 @@
-package com.cqrcb.cloud.function;
+package com.example.yxy.function;
 
 import lombok.Data;
 import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.annotation.JsonFormat;

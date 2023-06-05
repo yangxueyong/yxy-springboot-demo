@@ -1,7 +1,7 @@
-package com.cqrcb.cloud.function;
+package com.example.yxy.function;
 
-import com.cqrcb.cloud.entity.trade.UserRewardCalcInfo;
-import com.cqrcb.cloud.util.BigDecimalUtils;
+import com.example.yxy.entity.trade.UserRewardCalcInfo;
+import com.example.yxy.util.BigDecimalUtils;
 import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.flink.table.functions.ScalarFunction;

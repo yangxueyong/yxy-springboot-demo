@@ -1,4 +1,4 @@
-package com.cqrcb.cloud.util;
+package com.example.yxy.util;
  
 
 import lombok.extern.slf4j.Slf4j;

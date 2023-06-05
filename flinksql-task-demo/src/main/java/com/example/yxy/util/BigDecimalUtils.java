@@ -1,4 +1,4 @@
-package com.cqrcb.cloud.util;
+package com.example.yxy.util;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;

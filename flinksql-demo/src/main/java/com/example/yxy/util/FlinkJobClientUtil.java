@@ -67,7 +67,7 @@ public class FlinkJobClientUtil {
             SavepointRestoreSettings savepointRestoreSettings = SavepointRestoreSettings.none();
             PackagedProgram program = PackagedProgram.newBuilder()
                     .setConfiguration(flinkConfig)
-                    .setEntryPointClassName("com.cqrcb.cloud.FlinkTaskMain")
+                    .setEntryPointClassName("com.example.yxy.FlinkTaskMain")
                     .setJarFile(jarFile)
                     .setSavepointRestoreSettings(savepointRestoreSettings)
                     .setArguments(filePath)

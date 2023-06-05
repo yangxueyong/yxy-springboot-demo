@@ -1,11 +1,11 @@
-package com.cqrcb.cloud;
+package com.example.yxy;
 
-import com.cqrcb.cloud.entity.flink.FlinkJobInfo;
-import com.cqrcb.cloud.function.GetDateIntByTypeFun;
-import com.cqrcb.cloud.function.GetMaxMinFun;
-import com.cqrcb.cloud.function.GetMoneyForRewardFun;
-import com.cqrcb.cloud.function.SplitFunction;
-import com.cqrcb.cloud.util.FileUtil;
+import com.example.yxy.entity.flink.FlinkJobInfo;
+import com.example.yxy.function.GetDateIntByTypeFun;
+import com.example.yxy.function.GetMaxMinFun;
+import com.example.yxy.function.GetMoneyForRewardFun;
+import com.example.yxy.function.SplitFunction;
+import com.example.yxy.util.FileUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.CheckpointingMode;

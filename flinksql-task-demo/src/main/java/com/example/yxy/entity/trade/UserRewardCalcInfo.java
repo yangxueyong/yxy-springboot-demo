@@ -1,4 +1,4 @@
-package com.cqrcb.cloud.entity.trade;
+package com.example.yxy.entity.trade;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package com.cqrcb.cloud.entity.flink;
+package com.example.yxy.entity.flink;
 
 import lombok.Data;
 

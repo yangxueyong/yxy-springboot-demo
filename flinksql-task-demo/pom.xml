@@ -127,7 +127,7 @@
                     <archive>
                         <manifest>
                             <!-- 此处填写程序的主入口(main方法) -->
-                            <mainClass>com.cqrcb.cloud.FlinkTaskMain</mainClass>
+                            <mainClass>com.example.yxy.FlinkTaskMain</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
