@@ -50,9 +50,20 @@ public class FlinkJobClientUtil {
     }
 
 
+    /**
+     * 提交flink任务入口方法
+     *
+     * 应用将flink建表语句和flink执行语句封装到文件中 传给jar包 ->
+     * jar包中的 main方法解析文件中的sql，拿到建表语句和执行语句 ，预执行，得到执行计划 ->
+     * 应用将执行计划提交给flink集群
+     *
+     * @param filePath 文件路径
+     * @return {@link String}
+     * @throws Exception 异常
+     */
     public String submitStreamFlinkJob(String filePath) throws Exception {
         try {
-            File jarFile = new File("/Users/yxy/work/java/demo/yxy-springboot-demo/yxy-springboot-demo/flinksql-demo/src/main/resources/marketing-flink-task-endpoint-1.0.0-jar-with-dependencies.jar");
+            File jarFile = new File("/Users/yxy/work/java/demo/yxy-springboot-demo/yxy-springboot-demo/flinksql-task-demo/target/flinksql-task-demo-1.0.0-jar-with-dependencies.jar");
             SavepointRestoreSettings savepointRestoreSettings = SavepointRestoreSettings.none();
             PackagedProgram program = PackagedProgram.newBuilder()
                     .setConfiguration(flinkConfig)
@@ -61,7 +72,6 @@ public class FlinkJobClientUtil {
                     .setSavepointRestoreSettings(savepointRestoreSettings)
                     .setArguments(filePath)
                     .build();
-
 
             JobGraph jobGraph = PackagedProgramUtils.createJobGraph(program, flinkConfig, 1, false);
             CompletableFuture<JobID> result = flinkClient.submitJob(jobGraph);
@@ -74,6 +84,14 @@ public class FlinkJobClientUtil {
         }
     }
 
+    /**
+     * 取消flink job
+     *
+     * @param jobId jobid
+     * @return {@link JobDetailsInfo}
+     * @throws ExecutionException   执行异常
+     * @throws InterruptedException 中断异常
+     */
     public JobDetailsInfo cancelJobById(String jobId) throws ExecutionException, InterruptedException {
         JobDetailsInfo jobDetailsInfo = getFlinkJobDetail(jobId);
         if (jobDetailsInfo == null) {
@@ -95,6 +113,12 @@ public class FlinkJobClientUtil {
         return getFlinkJobDetail(jobId);
     }
 
+    /**
+     * 获取flink job的详情
+     *
+     * @param jobId 工作id
+     * @return {@link JobDetailsInfo}
+     */
     public JobDetailsInfo getFlinkJobDetail(String jobId) {
         try {
             // 集群信息

@@ -17,8 +17,11 @@ class DemoApplicationTests {
 
 
     /**
+     * @link https://nightlies.apache.org/flink/flink-docs-release-1.15/zh/docs/connectors/table/jdbc/
+     *
      * 元数据为表
      * 将结果数据保存到表
+     *
      */
     @Test
     void batchMetaTableDataSaveToCustProdDB() {
@@ -26,7 +29,13 @@ class DemoApplicationTests {
         env.setParallelism(1);
         StreamTableEnvironment tenv = StreamTableEnvironment.create(env);
 
-
+        /**
+         *
+         * 1，flink的表名可以与数据库中的表名不一样，但建议保持一致
+         * 2，flink的表字段要与数据库中的字段保持一致
+         * 3，flink表的字段类型和数据库中的字段类型不是完全一样
+         *
+         */
         String sql1 = "CREATE TABLE t_p_cust_deposit_prod (\n" +
                 "\tcust_no String,\n" +
                 "\tmain_prod_no String,\n" +
@@ -88,8 +97,11 @@ class DemoApplicationTests {
 
 
     /**
+     * @link https://nightlies.apache.org/flink/flink-docs-release-1.15/zh/docs/connectors/table/filesystem/
+     *
      * 元数据为文件
      * 将结果数据保存到表
+     *
      */
     @Test
     void batchMetaFileSaveToCustProdDB() {
@@ -154,11 +166,25 @@ class DemoApplicationTests {
 
 
     /**
-     * 元数据为kafka
-     * 将结果数据保存到表
+     * @link https://nightlies.apache.org/flink/flink-docs-release-1.15/zh/docs/connectors/table/kafka/
+     *
+     * 实时处理，元数据为kafka
+     * {"cust_no":"zhangsan","trade_money":12,"trade_channel":"wx","trade_time":"2023-01-01 10:10:01"}
+     *
+     * 订阅kafka消息，给客户派红包(将结果数据保存到表)，红包为交易金额的20%
+     * 条件1：交易金额必须大于10元，且交易渠道必须为微信支付
+     * 条件2：客户必须在系统中存在
+     * 条件3：给客户派发过之后不能再派发
+     *
+     * kafka 队列 -> k
+     *
+     * 结果表 jg
+     * 客户主表 kz
+     *
+     *
      */
     @Test
-    void batchMetaKafkaSaveToCustProdDB() {
+    void streamMetaKafkaSaveToCustProdDB() {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(1);
         StreamTableEnvironment tenv = StreamTableEnvironment.create(env);
