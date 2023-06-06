@@ -305,6 +305,24 @@ class DemoApplicationTests {
     }
 
 
+
+
+
+    /**
+     * 通过命令行的方式提交任务
+     */
+    private void submitTaskByCmd(){
+        /**
+         * bin/sql-client.sh  -i /Users/yxy/work/java/demo/yxy-springboot-demo/yxy-springboot-demo/flinksql-demo/src/main/resources/real_flink_init.sql -f /Users/yxy/work/java/demo/yxy-springboot-demo/yxy-springboot-demo/flinksql-demo/src/main/resources/real_flink_exec.sql
+         */
+    }
+
+
+
+
+
+
+
     @Autowired
     private FlinkJobClientUtil flinkJobClientUtil;
 
