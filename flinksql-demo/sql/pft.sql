@@ -1,13 +1,13 @@
 -- test_flink.t_p_cust_deposit_prod definition
 drop table if exists test_flink.t_p_cust_deposit_prod;
 CREATE TABLE test_flink.t_p_cust_deposit_prod (
-                                                  auto_id bigint auto_increment NOT NULL  key COMMENT '主键',
-                                                  cust_no varchar(100) NULL COMMENT '客户号',
-                                                  main_prod_no varchar(100) NULL COMMENT '主产品号',
-                                                  sub_prod_no varchar(100) NULL COMMENT '子产品号',
-                                                  amount decimal(30,2) NULL COMMENT '金额',
-                                                  begin_time datetime NULL COMMENT '开始时间',
-                                                  end_time datetime NULL COMMENT '结束时间'
+  auto_id bigint auto_increment NOT NULL  key COMMENT '主键',
+  cust_no varchar(100) NULL COMMENT '客户号',
+  main_prod_no varchar(100) NULL COMMENT '主产品号',
+  sub_prod_no varchar(100) NULL COMMENT '子产品号',
+  amount decimal(30,2) NULL COMMENT '金额',
+  begin_time datetime NULL COMMENT '开始时间',
+  end_time datetime NULL COMMENT '结束时间'
 )
     ENGINE=InnoDB
 DEFAULT CHARSET=utf8mb4
@@ -16,13 +16,13 @@ COMMENT='客户存款数据';
 
 drop table if exists test_flink.t_p_cust_loan_prod;
 CREATE TABLE test_flink.t_p_cust_loan_prod (
-                                               auto_id bigint auto_increment NOT NULL  key COMMENT '主键',
-                                               cust_no varchar(100) NULL COMMENT '客户号',
-                                               main_prod_no varchar(100) NULL COMMENT '主产品号',
-                                               sub_prod_no varchar(100) NULL COMMENT '子产品号',
-                                               amount decimal(30,2) NULL COMMENT '金额',
-                                               begin_time datetime NULL COMMENT '开始时间',
-                                               end_time datetime NULL COMMENT '结束时间'
+   auto_id bigint auto_increment NOT NULL  key COMMENT '主键',
+   cust_no varchar(100) NULL COMMENT '客户号',
+   main_prod_no varchar(100) NULL COMMENT '主产品号',
+   sub_prod_no varchar(100) NULL COMMENT '子产品号',
+   amount decimal(30,2) NULL COMMENT '金额',
+   begin_time datetime NULL COMMENT '开始时间',
+   end_time datetime NULL COMMENT '结束时间'
 )
     ENGINE=InnoDB
 DEFAULT CHARSET=utf8mb4
@@ -31,11 +31,11 @@ COMMENT='客户贷款数据';
 
 drop table if exists test_flink.t_p_cust_prod;
 CREATE TABLE test_flink.t_p_cust_prod (
-                                          auto_id bigint auto_increment NOT NULL  key COMMENT '主键',
-                                          cust_no varchar(100) NULL COMMENT '客户号',
-                                          main_prod_no varchar(100) NULL COMMENT '主产品号',
-                                          num decimal(30,2) COMMENT '数量',
-                                          amount decimal(30,2) NULL COMMENT '金额'
+  auto_id bigint auto_increment NOT NULL  key COMMENT '主键',
+  cust_no varchar(100) NULL COMMENT '客户号',
+  main_prod_no varchar(100) NULL COMMENT '主产品号',
+  num decimal(30,2) COMMENT '数量',
+  amount decimal(30,2) NULL COMMENT '金额'
 )
     ENGINE=InnoDB
 DEFAULT CHARSET=utf8mb4
@@ -70,9 +70,9 @@ select * from t_p_cust_deposit_prod;
 
 drop table if exists test_flink.t_p_cust_main;
 CREATE TABLE test_flink.t_p_cust_main (
-                                          cust_no varchar(100) NULL COMMENT '客户号',
-                                          cust_name varchar(100) NULL COMMENT '客户姓名',
-                                          phone varchar(100) NULL COMMENT '电话'
+  cust_no varchar(100) NULL COMMENT '客户号',
+  cust_name varchar(100) NULL COMMENT '客户姓名',
+  phone varchar(100) NULL COMMENT '电话'
 )
     ENGINE=InnoDB
 DEFAULT CHARSET=utf8mb4
@@ -84,11 +84,11 @@ insert into t_p_cust_main values('lisi','李四','130000');
 
 drop table if exists test_flink.t_p_cust_red_money;
 CREATE TABLE test_flink.t_p_cust_red_money (
-                                               auto_id bigint auto_increment NOT NULL  key COMMENT '主键',
-                                               cust_no varchar(100) NULL COMMENT '客户号',
-                                               prod_no varchar(100) NULL COMMENT '产品号',
-                                               red_money decimal(30,2) NULL COMMENT '金额',
-                                               create_time datetime NULL COMMENT '开始时间'
+       auto_id bigint auto_increment NOT NULL  key COMMENT '主键',
+       cust_no varchar(100) NULL COMMENT '客户号',
+       prod_no varchar(100) NULL COMMENT '产品号',
+       red_money decimal(30,2) NULL COMMENT '金额',
+       create_time datetime NULL COMMENT '开始时间'
 )
     ENGINE=InnoDB
 DEFAULT CHARSET=utf8mb4

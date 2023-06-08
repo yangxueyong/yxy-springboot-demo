@@ -25,8 +25,11 @@ class DemoApplicationTests {
      */
     @Test
     void batchMetaTableDataSaveToCustProdDB() {
+        //得到一个执行环境
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+        //并行度
         env.setParallelism(1);
+        //创建一个流表的执行环境
         StreamTableEnvironment tenv = StreamTableEnvironment.create(env);
 
         /**
@@ -73,6 +76,7 @@ class DemoApplicationTests {
                 ")";
         tenv.executeSql(sql2);
 
+        //在flink中创建一个名字为t_p_cust_prod的表，它映射到数据库test_flink中的t_p_cust_prod表
         String sql3 = "CREATE TABLE t_p_cust_prod (\n" +
                 "\tcust_no String,\n" +
                 "\tmain_prod_no String,\n" +
