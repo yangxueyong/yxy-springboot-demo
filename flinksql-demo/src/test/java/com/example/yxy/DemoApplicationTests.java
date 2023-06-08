@@ -113,7 +113,10 @@ class DemoApplicationTests {
         env.setParallelism(1);
         StreamTableEnvironment tenv = StreamTableEnvironment.create(env);
 
-
+        /**
+         * 文件型数据源
+         * flink表定义的字段必须与文件中的字段一一对应
+         */
         String sql1 = "CREATE TABLE t_p_cust_deposit_prod (\n" +
                 "\tcust_no String,\n" +
                 "\tmain_prod_no String,\n" +
