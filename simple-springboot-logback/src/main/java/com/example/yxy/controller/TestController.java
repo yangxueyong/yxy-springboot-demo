@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -19,11 +20,29 @@ import java.util.concurrent.Executors;
 public class TestController {
 
 
-    @GetMapping("/saveLog")
-    public String getTest(){
-        MDC.put("TRACE_ID","123");
+    /**
+     * 测试同步保存日志
+     * @return {@link String}
+     */
+    @GetMapping("/saveLogSync")
+    public String saveLogSync(){
+        MDC.put("TRACE_ID", UUID.randomUUID().toString());
         //打印日志
-        log.info(LogFilter.DB_Marker,"测试保存log");
+        log.info(LogFilter.DB_MARKER_SYNC,"测试同步保存log");
+        log.info("普通日志1");
+        return "ok";
+    }
+
+    /**
+     * 测试异步保存日志
+     * @return {@link String}
+     */
+    @GetMapping("/saveLogAsync")
+    public String saveLogAsync(){
+        MDC.put("TRACE_ID", UUID.randomUUID().toString());
+        //打印日志
+        log.error(LogFilter.DB_MARKER_SYNC,"测试异步保存log");
+        log.info("普通日志2");
         return "ok";
     }
 
