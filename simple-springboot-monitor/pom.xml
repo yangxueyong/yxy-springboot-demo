@@ -7,38 +7,49 @@
         <artifactId>yxy-springboot-demo</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>simple-springboot-logback</artifactId>
+    <groupId>com.example</groupId>
+    <artifactId>simple-springboot-monitor</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>simple-springboot-logback</name>
-
+    <name>simple-springboot-monitor</name>
     <properties>
         <java.version>1.8</java.version>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/ch.qos.logback.db/logback-core-db -->
         <dependency>
-            <groupId>ch.qos.logback.db</groupId>
-            <artifactId>logback-core-db</artifactId>
-            <version>1.2.11.1</version>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.1.17</version>
         </dependency>
+
         <dependency>
-            <groupId>ch.qos.logback.db</groupId>
-            <artifactId>logback-classic-db</artifactId>
-            <version>1.2.11.1</version>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.15</version>
         </dependency>
 
 
         <dependency>
-            <groupId>com.alibaba.fastjson2</groupId>
-            <artifactId>fastjson2</artifactId>
-            <version>2.0.6</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+
+
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -49,31 +60,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.30</version>
-        </dependency>
-        <dependency>
-            <groupId>com.oracle.database.jdbc</groupId>
-            <artifactId>ojdbc8</artifactId>
-            <version>12.2.0.1</version>
-        </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.apache.shardingsphere</groupId>-->
-<!--            <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>-->
-<!--            <version>5.2.0</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.shardingsphere</groupId>-->
-<!--            <artifactId>shardingsphere-jdbc-core</artifactId>-->
-<!--            <version>5.3.2</version>-->
-<!--        </dependency>-->
-        <dependency>
-            <groupId>org.yaml</groupId>
-            <artifactId>snakeyaml</artifactId>
-            <version>1.33</version>
-        </dependency>
+
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
@@ -93,16 +80,7 @@
             <artifactId>hutool-all</artifactId>
             <version>5.8.16</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.google.guava</groupId>-->
-<!--            <artifactId>guava</artifactId>-->
-<!--            <version>30.0-jre</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.calcite</groupId>-->
-<!--            <artifactId>calcite-core</artifactId>-->
-<!--            <version>1.28.0</version>-->
-<!--        </dependency>-->
+
     </dependencies>
 
     <build>
@@ -123,3 +101,4 @@
     </build>
 
 </project>
+

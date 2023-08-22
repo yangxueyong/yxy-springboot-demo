@@ -1,0 +1,103 @@
+server:
+  port: 8082
+
+
+spring:
+  application:
+    name: metricsLocalApp
+  redis:
+    host: localhost
+    port: 6379
+    password: Cqrcb123
+  datasource:
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+    password: 123456789
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #    \u5F00\u542Fdruid\u9A71\u52A8
+    type: com.alibaba.druid.pool.DruidDataSource
+
+    druid:
+#      filter:
+#        config:
+#          enabled: true
+
+      #      \u521D\u59CB\u5316\u5EFA\u7ACB\u7269\u7406\u8FDE\u63A5\u4E2A\u6570
+      initial-size: 3
+      #      \u6700\u51F6\u5965\u8FDE\u63A5\u6C60
+      min-idle: 3
+      #      \u8FDE\u63A5\u6C60\u6700\u5927\u8FDE\u63A5\u6570
+      max-active: 20
+      # \u83B7\u53D6\u8FDE\u63A5\u65F6\u6700\u5927\u7B49\u5F85\u65F6\u95F4\uFF0C\u5355\u4F4D\u6BEB\u79D2
+      max-wait: 60000
+      # \u7533\u8BF7\u8FDE\u63A5\u7684\u65F6\u5019\u68C0\u6D4B\uFF0C\u5982\u679C\u7A7A\u95F2\u65F6\u95F4\u5927\u4E8EtimeBetweenEvictionRunsMillis\uFF0C\u6267\u884CvalidationQuery\u68C0\u6D4B\u8FDE\u63A5\u662F\u5426\u6709\u6548\u3002
+      test-while-idle: true
+      # \u65E2\u4F5C\u4E3A\u68C0\u6D4B\u7684\u95F4\u9694\u65F6\u95F4\u53C8\u4F5C\u4E3AtestWhileIdel\u6267\u884C\u7684\u4F9D\u636E
+      time-between-connect-error-millis: 60000
+      # \u9500\u6BC1\u7EBF\u7A0B\u65F6\u68C0\u6D4B\u5F53\u524D\u8FDE\u63A5\u7684\u6700\u540E\u6D3B\u52A8\u65F6\u95F4\u548C\u5F53\u524D\u65F6\u95F4\u5DEE\u5927\u4E8E\u8BE5\u503C\u65F6\uFF0C\u5173\u95ED\u5F53\u524D\u8FDE\u63A5
+      min-evictable-idle-time-millis: 30000
+      # \u7528\u6765\u68C0\u6D4B\u8FDE\u63A5\u662F\u5426\u6709\u6548\u7684sql \u5FC5\u987B\u662F\u4E00\u4E2A\u67E5\u8BE2\u8BED\u53E5
+      # mysql\u4E2D\u4E3A select 'x'
+      # oracle\u4E2D\u4E3A select 1 from dual
+      validation-query: select 'x'
+      # \u7533\u8BF7\u8FDE\u63A5\u65F6\u4F1A\u6267\u884CvalidationQuery\u68C0\u6D4B\u8FDE\u63A5\u662F\u5426\u6709\u6548,\u5F00\u542F\u4F1A\u964D\u4F4E\u6027\u80FD,\u9ED8\u8BA4\u4E3Atrue
+      test-on-borrow: false
+      # \u5F52\u8FD8\u8FDE\u63A5\u65F6\u4F1A\u6267\u884CvalidationQuery\u68C0\u6D4B\u8FDE\u63A5\u662F\u5426\u6709\u6548,\u5F00\u542F\u4F1A\u964D\u4F4E\u6027\u80FD,\u9ED8\u8BA4\u4E3Atrue
+      test-on-return: false
+      # \u662F\u5426\u7F13\u5B58preparedStatement,mysql5.5+\u5EFA\u8BAE\u5F00\u542F
+      pool-prepared-statements: true
+      # \u5F53\u503C\u5927\u4E8E0\u65F6poolPreparedStatements\u4F1A\u81EA\u52A8\u4FEE\u6539\u4E3Atrue
+      max-pool-prepared-statement-per-connection-size: 20
+      # \u5408\u5E76\u591A\u4E2ADruidDataSource\u7684\u76D1\u63A7\u6570\u636E
+      use-global-data-source-stat: false
+      # \u914D\u7F6E\u6269\u5C55\u63D2\u4EF6
+      filters: stat,wall,slf4j
+      # \u901A\u8FC7connectProperties\u5C5E\u6027\u6765\u6253\u5F00mergeSql\u529F\u80FD\uFF1B\u6162SQL\u8BB0\u5F55
+      connect-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=2000
+      # \u5B9A\u65F6\u8F93\u51FA\u7EDF\u8BA1\u4FE1\u606F\u5230\u65E5\u5FD7\u4E2D\uFF0C\u5E76\u6BCF\u6B21\u8F93\u51FA\u65E5\u5FD7\u4F1A\u5BFC\u81F4\u6E05\u96F6\uFF08reset\uFF09\u8FDE\u63A5\u6C60\u76F8\u5173\u7684\u8BA1\u6570\u5668\u3002
+      time-between-log-stats-millis: 300000
+      # \u914D\u7F6EDruidStatFilter
+      web-stat-filter:
+        enabled: true
+        url-pattern: '/*'
+        exclusions: '*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*'
+      # \u914D\u7F6EDruidStatViewServlet
+      stat-view-servlet:
+        # \u662F\u5426\u542F\u7528StatViewServlet\uFF08\u76D1\u63A7\u9875\u9762\uFF09\u9ED8\u8BA4\u503C\u4E3Afalse\uFF08\u8003\u8651\u5230\u5B89\u5168\u95EE\u9898\u9ED8\u8BA4\u5E76\u672A\u542F\u52A8\uFF0C\u5982\u9700\u542F\u7528\u5EFA\u8BAE\u8BBE\u7F6E\u5BC6\u7801\u6216\u767D\u540D\u5355\u4EE5\u4FDD\u969C\u5B89\u5168\uFF09
+        url-pattern: '/druid/*'
+        # \u7981\u7528HTML\u9875\u9762\u4E0A\u7684\u201CReset All\u201D\u529F\u80FD
+        reset-enable: false
+        #        # druid\u767B\u5F55\u540D
+        login-username: admin
+        # \u767B\u5F55\u5BC6\u7801
+        login-password: admin
+        enabled: true
+#      connection-properties: config.decrypt=true;config.decrypt.key=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKgxAbUPvHWDFpEcSwdWT2XepyfxsXQtyJHbDkdtcl6crS2vBBlhbYzHQqrP/0zRNzs3Jl3uTm3o+ja6ehTmfyECAwEAAQ==
+
+management:
+  server:
+    port: 9001
+  #  \u5F00\u542F actator \u670D\u52A1
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  # \u66B4\u9732 metrics \u7AEF\u53E3
+  endpoint:
+    metrics:
+      enabled: true
+    #    \u914D\u7F6E prometheus \u670D\u52A1
+    prometheus:
+      enabled: true
+
+
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+    tags:
+      application: ${spring.application.name}
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
