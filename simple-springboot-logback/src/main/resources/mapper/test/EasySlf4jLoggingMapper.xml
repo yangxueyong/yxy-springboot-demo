@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.yxy.mapper.EasySlf4jLoggingMapper">
+
+
+  <select id="selectIntMap"  resultType="java.util.Map">
+    select 13/3 from dual
+  </select>
+
+  <select id="selectInt"  resultType="java.lang.Integer">
+    select 13/3 from dual
+  </select>
+
+  <select id="selectTimeOut"  resultType="java.util.Map" parameterType="java.util.Map" timeout="1">
+    select count(*) num,max(id) maxId,avg(age) avgAge,max(`desc`) ddd from detail2
+    where age &gt;#{age1} and age &lt;#{age2}
+    group by age limit #{page1},#{page2}
+  </select>
+
+  <insert id="saveReturnPK" parameterType="com.example.yxy.entity.TestAutoIdEntity" useGeneratedKeys="true" keyProperty="idd" >
+    insert into test_auto_id(name,address) values(#{name},#{address})
+  </insert>
+
+</mapper>
