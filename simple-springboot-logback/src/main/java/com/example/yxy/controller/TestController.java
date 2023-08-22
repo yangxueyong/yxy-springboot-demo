@@ -41,7 +41,7 @@ public class TestController {
     public String saveLogAsync(){
         MDC.put("TRACE_ID", UUID.randomUUID().toString());
         //打印日志
-        log.error(LogFilter.DB_MARKER_SYNC,"测试异步保存log");
+        log.error(LogFilter.DB_MARKER_ASYNC,"测试异步保存log");
         log.info("普通日志2");
         return "ok";
     }
