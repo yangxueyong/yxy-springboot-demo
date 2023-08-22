@@ -52,10 +52,10 @@ class DemoApplicationTests {
                 "   'table-name' = 't_p_cust_deposit_prod',\n" +
                 "   'username'='root',\n" +
                 "   'password'='123456789'" +
-//                "   ,'scan.partition.column'='auto_id'" +
-//                "   ,'scan.partition.num'='2'" +
-//                "   ,'scan.partition.lower-bound'='1'" +
-//                "   ,'scan.partition.upper-bound'='4'\n" +
+                "   ,'scan.partition.column'='auto_id'" +
+                "   ,'scan.partition.num'='2'" +
+                "   ,'scan.partition.lower-bound'='1'" +
+                "   ,'scan.partition.upper-bound'='7'\n" +
                 ")";
         tenv.executeSql(sql1);
 
@@ -183,7 +183,7 @@ class DemoApplicationTests {
      * 条件2：客户必须在系统中存在
      * 条件3：给客户派发过之后不能再派发
      *
-     * kafka 队列 -> k
+     * kafka topic -> k
      *
      * 结果表 jg
      * 客户主表 kz
@@ -320,7 +320,8 @@ class DemoApplicationTests {
      */
     private void submitTaskByCmd(){
         /**
-         * bin/sql-client.sh  -i /Users/yxy/work/java/demo/yxy-springboot-demo/yxy-springboot-demo/flinksql-demo/src/main/resources/real_flink_init.sql -f /Users/yxy/work/java/demo/yxy-springboot-demo/yxy-springboot-demo/flinksql-demo/src/main/resources/real_flink_exec.sql
+         * bin/sql-client.sh  -i /Users/yxy/work/java/demo/yxy-springboot-demo/yxy-springboot-demo/flinksql-demo/src/main/resources/real_flink_init.sql
+         * -f /Users/yxy/work/java/demo/yxy-springboot-demo/yxy-springboot-demo/flinksql-demo/src/main/resources/real_flink_exec.sql
          */
     }
 

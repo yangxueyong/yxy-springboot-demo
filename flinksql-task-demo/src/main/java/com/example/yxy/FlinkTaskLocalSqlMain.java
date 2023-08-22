@@ -40,7 +40,7 @@ public class FlinkTaskLocalSqlMain {
         //配置job名称
         Configuration configuration = tenv.getConfig().getConfiguration();
         configuration.setString("pipeline.name", "测试");
-
+//        String initsSQLfile = args[0]
         tenv.executeSql("CREATE TABLE kafka_cust_red_money (\n" +
                 "    cust_no String,\n" +
                 "    trade_channel String,\n" +

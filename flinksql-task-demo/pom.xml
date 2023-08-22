@@ -128,7 +128,7 @@
                         <manifest>
                             <!-- 此处填写程序的主入口(main方法) -->
 <!--                            <mainClass>com.example.yxy.FlinkTaskLocalSqlMain</mainClass>-->
-                            <mainClass>com.example.yxy.FlinkTaskMain</mainClass>
+                            <mainClass>com.example.yxy.FlinkTaskSaveFileDataToDBMain</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
