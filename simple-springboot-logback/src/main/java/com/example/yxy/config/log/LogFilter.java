@@ -66,7 +66,7 @@ public class LogFilter extends Filter<LoggingEvent> {
     }
 
     /**
-     * 报错日志到db
+     * 保存日志到db
      *
      * @param event
      */
@@ -79,14 +79,21 @@ public class LogFilter extends Filter<LoggingEvent> {
             if (callerDatum != null) {
                 int lineNumber = callerDatum.getLineNumber();
                 String methodName = callerDatum.getMethodName();
+                //行号
                 log.setLogLineNum(lineNumber);
+                //方法
                 log.setLogMethod(methodName);
             }
         }
+        //时间
         log.setLogTime(DateUtils.getCurrentLocalDateTime());
+        //线程名称
         log.setLogThread(event.getThreadName());
+        //类
         log.setLogClass(loggerName);
+        //日志级别
         log.setLogLevel(event.getLevel().levelStr);
+        //记录日志跟踪号
         log.setTrackId(event.getMDCPropertyMap().get("TRACE_ID"));
         //日志内容
         log.setLogContent(event.getFormattedMessage());

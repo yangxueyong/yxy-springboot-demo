@@ -46,4 +46,22 @@ public class TestController {
         return "ok";
     }
 
+
+    /**
+     * 测试同步保存错误日志
+     * @return {@link String}
+     */
+    @GetMapping("/saveErrorLogSync")
+    public String saveErrorLogSync(){
+        MDC.put("TRACE_ID", UUID.randomUUID().toString());
+        try {
+            int i = 1 / 0;
+        }catch (Exception e){
+            //打印日志
+            log.info(LogFilter.DB_MARKER_SYNC, "测试同步保存错误log->{}",e.getMessage());
+            log.info("普通错误日志1->",e);
+        }
+        return "ok";
+    }
+
 }
