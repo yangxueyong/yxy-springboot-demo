@@ -8,6 +8,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+/**
+ * 动态字节码执行
+ *
+ * @author yxy
+ * @date 2023/08/25
+ */
 @Slf4j
 @RestController
 @RequestMapping("/autoJava")
