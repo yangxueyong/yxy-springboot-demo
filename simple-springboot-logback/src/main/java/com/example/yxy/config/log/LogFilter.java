@@ -22,8 +22,17 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @date 2023/08/22
  */
 public class LogFilter extends Filter<LoggingEvent> {
+    /**
+     * 丢弃老的
+     */
     RejectedExecutionHandler rejectedExecutionHandler = new ThreadPoolExecutor.DiscardOldestPolicy();
-    BlockingQueue<Runnable> workQueue = new LinkedBlockingQueue<Runnable>(2);
+    /**
+     * 队列深度，超过这个深度，历史的会被抛弃掉
+     */
+    BlockingQueue<Runnable> workQueue = new LinkedBlockingQueue<Runnable>(1000);
+    /**
+     * 线程池
+     */
     ThreadPoolExecutor executor = new ThreadPoolExecutor(10, 10, 10, TimeUnit.SECONDS, workQueue, new ThreadFactory() {
         private final AtomicInteger counter = new AtomicInteger();
         @Override
