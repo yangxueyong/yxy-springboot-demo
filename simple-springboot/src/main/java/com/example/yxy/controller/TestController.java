@@ -2,13 +2,13 @@ package com.example.yxy.controller;
 
 import com.example.yxy.entity.TestEntity;
 import com.example.yxy.service.TestService;
+import com.example.yxy.service.TestServiceImpl;
 import com.example.yxy.util.TestBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.PostConstruct;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -50,6 +50,12 @@ public class TestController {
         System.out.println("list->"+list);
 
         return list;
+    }
+
+    @GetMapping("/testAnn1")
+    public String testAnn1(){
+        testService.testAnn1();
+        return "ok";
     }
 
     /**
