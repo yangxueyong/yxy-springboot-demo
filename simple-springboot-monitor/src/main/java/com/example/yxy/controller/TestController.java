@@ -21,13 +21,24 @@ public class TestController {
     private MyUserService myUserService;
 
     /**
-     * 测试同步保存日志
      * @return {@link String}
      */
     @GetMapping("/saveUser")
     public String saveUser(@RequestBody MyUser myUser){
         myUserService.saveUser(myUser);
         return "ok";
+    }
+
+    /**
+     * 死循环
+     * @return {@link String}
+     */
+    @GetMapping("/endlessLoop")
+    public String endlessLoop() throws InterruptedException {
+        while (true){
+            System.out.println("123");
+            Thread.sleep(100);
+        }
     }
 
 }

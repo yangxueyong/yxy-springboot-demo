@@ -3,18 +3,14 @@ package com.example.yxy;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.util.ReflectUtil;
-import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import com.example.yxy.entity.TestAutoIdEntity;
 import com.example.yxy.entity.TestEntity;
 import com.example.yxy.entity.mrule.CustActResultVO;
 import com.example.yxy.entity.mrule.CustInfo;
 import com.example.yxy.entity.mrule.CustProdInfo;
-import com.example.yxy.mapper.TestMapper;
-import com.example.yxy.service.TestService;
+import com.example.yxy.service.TestServiceImpl;
 import com.example.yxy.util.DateUtil;
-import com.example.yxy.util.TestBean;
-import com.github.pagehelper.PageHelper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,24 +18,25 @@ import org.junit.jupiter.api.Test;
 //import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.common.TemplateParserContext;
+import org.springframework.expression.spel.SpelCompilerMode;
+import org.springframework.expression.spel.SpelParserConfiguration;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.*;
+import java.util.concurrent.*;
 
 @SpringBootTest
 class DemoApplicationTests {
  
  
     @Autowired
-    private TestService testService;
+    private TestServiceImpl testService;
 
     /**
      * 查询数据
@@ -96,11 +93,14 @@ class DemoApplicationTests {
         System.out.println(JSON.toJSONString(testAutoIdEntity));
     }
 
-    ExpressionParser parser = new SpelExpressionParser();
+
 
     @Test
     public void test() {
 
+        SpelParserConfiguration config = new SpelParserConfiguration(SpelCompilerMode.IMMEDIATE,
+                this.getClass().getClassLoader());
+        ExpressionParser parser = new SpelExpressionParser(config);
 
         StandardEvaluationContext context = new StandardEvaluationContext();
         Person person = new Person("zhangsan", 1);
@@ -124,37 +124,65 @@ class DemoApplicationTests {
         System.out.println(result);
     }
 
+    public static void main(String[] args) throws ParseException, InterruptedException {
+        testSpel();
+    }
     @Test
-    public void test22() throws ParseException {
+    public static void testSpel() throws ParseException, InterruptedException {
         long t1 = System.currentTimeMillis();
-        int N = 100000;
+        int N = 100;
+
+//        SpelParserConfiguration config = new SpelParserConfiguration(SpelCompilerMode.IMMEDIATE,
+//                DemoApplicationTests.getClass().getClassLoader());
+        ExpressionParser parser = new SpelExpressionParser();
+
+        Expression expression = parser.parseExpression(
+                "#cust.level=='1' && #cust.age >= 28 && #amap['num']==1 && #cp.prodNo=='prod1' && #checkDate('13:00:00','23:00:00')");
+
+        List<Boolean> flagSet = new CopyOnWriteArrayList<>();
+        CountDownLatch cd = new CountDownLatch(N);
         for (int i = 0; i < N; i++) {
-            CustProdInfo cp = new CustProdInfo();
-            cp.setCustNo("xx2");
-            cp.setProdNo("prod1");
-            cp.setBal(BigDecimal.valueOf(11.23));
+            int finalI = i;
+            new Thread(() -> {
+                CustProdInfo cp = new CustProdInfo();
+                cp.setCustNo("xx2");
+                cp.setProdNo("prod1");
+                cp.setBal(BigDecimal.valueOf(11.23));
 
-            CustInfo p2 = new CustInfo();
-            p2.setAge(29);
-            p2.setLevel("1");
-            p2.setCustNo("xx2");
-            p2.setLoginTime(new Date());
+                CustInfo p2 = new CustInfo();
+                p2.setAge(finalI);
+                p2.setLevel("1");
+                p2.setCustNo("xx2");
+                p2.setLoginTime(new Date());
 
-            CustActResultVO vo = new CustActResultVO();
+                CustActResultVO vo = new CustActResultVO();
 
-            StandardEvaluationContext context = new StandardEvaluationContext();
-            context.setVariable("cust", p2);
-            context.setVariable("cp", cp);
-            context.setVariable("checkDate", ReflectUtil.getMethodByName(DateUtil.class,"checkDate"));
+                Map param = new HashMap<>();
+                param.put("num",1);
 
+                StandardEvaluationContext context = new StandardEvaluationContext();
+                context.setVariable("cust", p2);
+                context.setVariable("cp", cp);
+                context.setVariable("amap", param);
+                context.setVariable("checkDate", ReflectUtil.getMethodByName(DateUtil.class,"checkDate"));
 
-            boolean bol = parser.parseExpression(
-                    "#cust.level=='1' && #cust.age >= 28 && #cp.prodNo=='prod1' && #checkDate('13:00:00','23:00:00')").getValue(context, Boolean.class);
-            System.out.println("bol-->" + bol);
+                boolean bol = expression
+                        .getValue(context, Boolean.class);
+
+                System.out.println("bol-->" + bol);
+
+                if(bol){
+                    flagSet.add(bol);
+                }
+                cd.countDown();
+            }).start();
         }
+
+        cd.await();
+
         long t2 = System.currentTimeMillis();
         long cha = ((t2 - t1));
-        System.out.println("次数->" + N + "，耗时->" + (t2 - t1) + "，平均->" + ((double)cha / N));
+        System.out.println("多少是true->"+ flagSet.size() +",次数->" + N + "，耗时->" + (t2 - t1) + "，平均->" + ((double)cha / N));
 
 
 //        if($cust.getLevel() == "1" && $cust.getAge() >= 28 && $cp.getProdNo() == "prod1" && DateUtil.checkDate("13:00:00","23:00:00"))

@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.OptBoolean;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -16,6 +18,7 @@ public class MyUser {
     private BigDecimal id;
 
     @TableField("createTime")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",lenient = OptBoolean.TRUE)
     private Date createTime;
 
     @TableField("name")

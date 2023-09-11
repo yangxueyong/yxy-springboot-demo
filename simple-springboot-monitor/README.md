@@ -47,6 +47,7 @@ docker run -d -p 3000:3000 --name=grafana9.2 -v /Users/yxy/work/docker/data/graf
 
 #### 5.3 配置grafana面板
 #### 可以在这个地址中去下载自己心仪的模板 https://grafana.com/grafana/dashboards/?search=springboot
+#### https://grafana.com/grafana/dashboards/4701-jvm-micrometer/
 ![下载模板json](img_4.png)
 然后导入到grafana
 ![配置grafana面板](img_3.png)
