@@ -25,7 +25,6 @@ import org.springframework.expression.spel.SpelCompilerMode;
 import org.springframework.expression.spel.SpelParserConfiguration;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
-import org.springframework.scheduling.support.CronSequenceGenerator;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -187,18 +186,6 @@ class DemoApplicationTests {
 
 
 //        if($cust.getLevel() == "1" && $cust.getAge() >= 28 && $cp.getProdNo() == "prod1" && DateUtil.checkDate("13:00:00","23:00:00"))
-    }
-
-    @Test
-    public void testCron(){
-        CronSequenceGenerator cronSequenceGenerator = new CronSequenceGenerator("0/30 * * * * ?");
-        Date date = new Date();
-        Date time1 = cronSequenceGenerator.next(date);
-        Date time2 = cronSequenceGenerator.next(time1);
-        System.out.println(time1);
-        System.out.println(time2);
-
-        //下次执行时间
     }
 }
 
