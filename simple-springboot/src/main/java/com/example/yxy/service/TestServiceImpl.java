@@ -3,7 +3,9 @@ package com.example.yxy.service;
 import com.alibaba.fastjson2.JSON;
 import com.example.yxy.config.CustomLogAnn;
 import com.example.yxy.entity.TestAutoIdEntity;
+import com.example.yxy.entity.TestAutoIdEntity2;
 import com.example.yxy.mapper.TestMapper;
+import com.example.yxy.mapper.TestMapper2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +18,12 @@ import java.util.Random;
 
 @Slf4j
 @Service
-public class TestServiceImpl implements TestService {
+public class TestServiceImpl  implements TestService {
     @Autowired
     private TestMapper testMapper;
+
+    @Autowired
+    private TestMapper2 testMapper2;
 
     @Transactional
     public void selectInt() {
@@ -34,9 +39,13 @@ public class TestServiceImpl implements TestService {
         param.put("age2",new Random().nextInt(1000));
         return testMapper.selectTimeOut(param);
     }
-
     public TestAutoIdEntity saveReturnPK(TestAutoIdEntity testAutoIdEntity){
         testMapper.saveReturnPK(testAutoIdEntity);
+        return testAutoIdEntity;
+    }
+
+    public TestAutoIdEntity2 saveReturnPK2(TestAutoIdEntity2 testAutoIdEntity){
+        testMapper2.insert(testAutoIdEntity);
         return testAutoIdEntity;
     }
 

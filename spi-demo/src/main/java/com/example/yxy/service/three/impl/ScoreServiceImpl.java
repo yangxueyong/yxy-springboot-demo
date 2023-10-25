@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Slf4j
+@Service
 public class ScoreServiceImpl implements ScoreService {
 
     @Autowired

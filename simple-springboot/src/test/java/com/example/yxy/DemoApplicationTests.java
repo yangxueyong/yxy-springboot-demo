@@ -2,9 +2,11 @@ package com.example.yxy;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ReflectUtil;
 import com.alibaba.fastjson2.JSON;
 import com.example.yxy.entity.TestAutoIdEntity;
+import com.example.yxy.entity.TestAutoIdEntity2;
 import com.example.yxy.entity.TestEntity;
 import com.example.yxy.entity.mrule.CustActResultVO;
 import com.example.yxy.entity.mrule.CustInfo;
@@ -26,6 +28,7 @@ import org.springframework.expression.spel.SpelParserConfiguration;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.scheduling.support.CronSequenceGenerator;
+import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -52,15 +55,19 @@ class DemoApplicationTests {
      * 查询数据
      */
     @Test
-    void selectTimeOut() {
+    void selectTimeOut() throws InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(5);
-        for (int i = 0; i < 10000; i++) {
+        int N = 10000;
+        CountDownLatch cd = new CountDownLatch(N);
+        for (int i = 0; i < N; i++) {
             executorService.execute(()->{
                 try {
                     List list = testService.selectTimeOut();
                     System.out.println(list);
                 }catch (Exception e){
                     e.printStackTrace();
+                }finally {
+                    cd.countDown();
                 }
                 try {
                     Thread.sleep(100);
@@ -70,6 +77,7 @@ class DemoApplicationTests {
             });
 
         }
+        cd.await();
     }
 
     @Test
@@ -91,6 +99,15 @@ class DemoApplicationTests {
         testAutoIdEntity.setName("xx1");
         testAutoIdEntity.setAddress("重庆");
         testService.saveReturnPK(testAutoIdEntity);
+        System.out.println(JSON.toJSONString(testAutoIdEntity));
+    }
+
+    @Test
+    public void saveReturnPK2(){
+        TestAutoIdEntity2 testAutoIdEntity = new TestAutoIdEntity2();
+        testAutoIdEntity.setName("xx2");
+        testAutoIdEntity.setAddress("重庆");
+        testService.saveReturnPK2(testAutoIdEntity);
         System.out.println(JSON.toJSONString(testAutoIdEntity));
     }
 

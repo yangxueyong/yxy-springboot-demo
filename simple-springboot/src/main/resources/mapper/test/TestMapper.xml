@@ -21,4 +21,8 @@
     insert into test_auto_id(name,address) values(#{name},#{address})
   </insert>
 
+<!--  <insert id="saveReturnPK2" parameterType="com.example.yxy.entity.TestAutoIdEntity2" >-->
+<!--    insert into test_auto_id(name,address) values(#{name},#{address})-->
+<!--  </insert>-->
+
 </mapper>
