@@ -24,14 +24,17 @@
 spring.kafka.consumer.enable-auto-commit=false
 spring.kafka.listener.ack-mode=manual_immediate
 ```
-
-
-#### spring.kafka.properties.session.timeout.ms
+#### consumer给broker发送心跳的间隔时间,默认时间3秒，broker接收到心跳如果此时有rebalance发生会通过心跳响应将rebalance方案下发给consumer，这个时间可以稍微短一点
 ```
-spring.kafka.properties.session.timeout.ms 默认值45秒  心跳超时时间，当超过这个时间没有提交心跳，则kafka会发起消费组再平衡
+spring.kafka.properties.heartbeat.interval.ms: 3000
 ```
 
-#### spring.kafka.properties.max.poll.interval.ms
+#### 默认值45秒  心跳超时时间，当超过这个时间没有提交心跳，则kafka会发起消费组再平衡
 ```
-spring.kafka.properties.max.poll.interval.ms 默认值300秒  消费者超过这个时间没有poll消费数据，则kafka会发起消费组再平衡
+spring.kafka.properties.session.timeout.ms 
+```
+
+#### 默认值300秒  消费者超过这个时间没有poll消费数据，则kafka会发起消费组再平衡
+```
+spring.kafka.properties.max.poll.interval.ms 
 ```

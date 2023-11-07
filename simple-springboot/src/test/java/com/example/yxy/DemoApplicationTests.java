@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.MethodResolver;
 import org.springframework.expression.common.TemplateParserContext;
 import org.springframework.expression.spel.SpelCompilerMode;
 import org.springframework.expression.spel.SpelParserConfiguration;
@@ -30,6 +31,7 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.scheduling.support.CronSequenceGenerator;
 import org.springframework.util.CollectionUtils;
 
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.*;
@@ -112,6 +114,32 @@ class DemoApplicationTests {
     }
 
 
+    @Test
+    public void testSpel2() throws NoSuchMethodException {
+        Method parseDouble = Double.class.getDeclaredMethod("parseDouble", String.class);
+        SpelParserConfiguration config = new SpelParserConfiguration(SpelCompilerMode.IMMEDIATE,
+                this.getClass().getClassLoader());
+        ExpressionParser parser = new SpelExpressionParser(config);
+
+        System.out.println("-->name->>" + parseDouble.getName());
+        StandardEvaluationContext context = new StandardEvaluationContext();
+        context.registerFunction("parseDouble", parseDouble);
+        context.registerFunction("parseDouble", parseDouble);
+        List<MethodResolver> methodResolvers = context.getMethodResolvers();
+
+//        Person person = new Person("zhangsan", 1);
+//        Double.parseDouble()
+        context.setVariable("name", "zhangsan");
+        context.setVariable("tradeAmont", "100.2");
+
+        String result = parser.parseExpression(
+                "#name.equals('zhangsan') && #name.indexOf('z')>=0 && #name.substring(0,1)=='z' && #tradeAmont != null && #parseDouble(#tradeAmont) > 10 ? '结果是1':'结果不是1'").getValue(context, String.class);
+        System.out.println(result);
+
+        Boolean result2 = parser.parseExpression(
+                "#name=='zhangsan'").getValue(context, Boolean.class);
+        System.out.println(result2);
+    }
 
     @Test
     public void test() {
