@@ -39,11 +39,22 @@ public class TestServiceImpl  implements TestService {
         param.put("age2",new Random().nextInt(1000));
         return testMapper.selectTimeOut(param);
     }
+
+    /**
+     * 使用mybatis返回主键
+     * @param testAutoIdEntity
+     * @return {@link TestAutoIdEntity}
+     */
     public TestAutoIdEntity saveReturnPK(TestAutoIdEntity testAutoIdEntity){
         testMapper.saveReturnPK(testAutoIdEntity);
         return testAutoIdEntity;
     }
 
+    /**
+     * 使用注解返回主键
+     * @param testAutoIdEntity
+     * @return {@link TestAutoIdEntity2}
+     */
     public TestAutoIdEntity2 saveReturnPK2(TestAutoIdEntity2 testAutoIdEntity){
         testMapper2.insert(testAutoIdEntity);
         return testAutoIdEntity;

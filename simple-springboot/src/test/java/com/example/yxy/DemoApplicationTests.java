@@ -20,6 +20,11 @@ import org.junit.jupiter.api.Test;
 //import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.MethodResolver;
@@ -44,12 +49,94 @@ class DemoApplicationTests {
     @Autowired
     private TestServiceImpl testService;
 
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
+
     /**
      * 查询数据
      */
     @Test
     void selectInt() {
         testService.selectInt();
+    }
+
+
+    /**
+     * 查询数据
+     */
+    @Test
+    void testRedis() {
+        redisTemplate.opsForValue().set("abc", "yxy");
+    }
+
+    /**
+     * 查询数据
+     */
+    @Test
+    void testRedis2() throws InterruptedException {
+
+        //得到当前的秒
+        long start = System.currentTimeMillis();
+        Random r=new Random();
+
+        int threadNum = 20;
+        int sigThreadRunNum = 1000;
+        int sumCount = threadNum * sigThreadRunNum;
+        CountDownLatch cd = new CountDownLatch(sumCount);
+
+        new Thread(()->{
+            ExecutorService executorService = Executors.newFixedThreadPool(threadNum);
+            for (int j = 0; j < threadNum; j++) {
+                executorService.execute(()->{
+                    for(int i=0; i<sigThreadRunNum; i++){
+                        //从jedis连接池获取资源
+                        try {
+                            // 定义Lua脚本
+                            String luaScript = "redis.call(\"incrby\",\"abcd123\",1) return '123'";
+                            DefaultRedisScript<Integer> stringDefaultRedisScript = new DefaultRedisScript<>(luaScript, Integer.class);
+                            //                    String luaScript = "redis.call(\"SCRIPT FLUSH\")";
+                            Integer aa = redisTemplate.execute(stringDefaultRedisScript, Arrays.asList("key"));
+
+                            Thread.sleep(r.nextInt(10) + 10);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }finally {
+                            cd.countDown();
+                        }
+                    }
+                });
+            }
+        }).start();
+
+
+
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        executorService.execute(()->{
+            while (cd.getCount() > 0) {
+                //从jedis连接池获取资源
+                try {
+                    // 定义Lua脚本
+                    redisTemplate.execute((RedisCallback<Object>) connection -> {
+                        connection.scriptFlush();
+                        return "ok";
+                    });
+
+                    Thread.sleep(r.nextInt(10) + 10);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }finally {
+                }
+            }
+        });
+
+        cd.await();
+
+
+        //结束时的秒数
+        long end = System.currentTimeMillis();
+
+        System.out.println("总耗时:"+(end-start));
+
     }
 
 

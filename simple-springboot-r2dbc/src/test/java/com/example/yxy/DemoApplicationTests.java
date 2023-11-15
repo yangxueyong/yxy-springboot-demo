@@ -96,6 +96,26 @@ class DemoApplicationTests {
 
 
     @Test
+    public void testSpel() {
+
+        SpelParserConfiguration config = new SpelParserConfiguration(SpelCompilerMode.IMMEDIATE,
+                this.getClass().getClassLoader());
+        ExpressionParser parser = new SpelExpressionParser(config);
+
+        StandardEvaluationContext context = new StandardEvaluationContext();
+//        Person person = new Person("zhangsan", 1);
+        context.setVariable("name", "zhangsan");
+
+        String result = parser.parseExpression(
+                "#name=='zhangsan' ? '结果是1':'结果不是1'").getValue(context, String.class);
+        System.out.println(result);
+
+        Boolean result2 = parser.parseExpression(
+                "#name=='zhangsan'").getValue(context, Boolean.class);
+        System.out.println(result2);
+    }
+
+    @Test
     public void test() {
 
         SpelParserConfiguration config = new SpelParserConfiguration(SpelCompilerMode.IMMEDIATE,
