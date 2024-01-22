@@ -5,5 +5,7 @@ public class Test2 {
         System.out.println("t2 1");
 
         System.out.println("t2 2");
+
+        System.out.println("t2 3");
     }
 }
