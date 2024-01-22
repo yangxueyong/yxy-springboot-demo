@@ -1,0 +1,7 @@
+package com.example.yxy.testversion;
+
+public class Test1 {
+    public static void main(String[] args) {
+        System.out.println("123");
+    }
+}
