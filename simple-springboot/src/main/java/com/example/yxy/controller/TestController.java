@@ -1,10 +1,13 @@
 package com.example.yxy.controller;
 
+import com.example.yxy.config.JjkControllConfig;
+import com.example.yxy.config.XykControllConfig;
 import com.example.yxy.entity.TestEntity;
 import com.example.yxy.service.TestService;
 import com.example.yxy.service.TestServiceImpl;
 import com.example.yxy.util.TestBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +29,15 @@ public class TestController {
 
     @Autowired
     private TestService testService;
+
+    @Autowired(required = false)
+    private JjkControllConfig jjkControllConfig;
+
+    @Autowired(required = false)
+    private XykControllConfig xykControllConfig;
+
+    @Value("${test.val.en:}")
+    private String ennn;
 
     @GetMapping("/getTest")
     public TestEntity getTest(){
@@ -56,6 +68,11 @@ public class TestController {
     public String testAnn1(){
         testService.testAnn1();
         return "ok";
+    }
+
+    @GetMapping("/getcc")
+    public String getcc(){
+        return jjkControllConfig.getCc() + xykControllConfig.getCc() + ",ennn:" + ennn;
     }
 
     /**

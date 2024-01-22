@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 @Slf4j
@@ -69,5 +70,15 @@ public class TestServiceImpl  implements TestService {
     @CustomLogAnn
     public void testAnn2(){
         log.info("这是第2个方法2");
+    }
+
+    @Override
+    public List<Map> queryDataMap() {
+        return testMapper.queryDataMap();
+    }
+
+    @Override
+    public int execSql(String sql) {
+        return testMapper.execSql(sql);
     }
 }

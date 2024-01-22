@@ -4,10 +4,11 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ReflectUtil;
-import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson.JSON;
 import com.example.yxy.entity.TestAutoIdEntity;
 import com.example.yxy.entity.TestAutoIdEntity2;
 import com.example.yxy.entity.TestEntity;
+import com.example.yxy.entity.TestJsonEntity;
 import com.example.yxy.entity.mrule.CustActResultVO;
 import com.example.yxy.entity.mrule.CustInfo;
 import com.example.yxy.entity.mrule.CustProdInfo;
@@ -167,6 +168,21 @@ class DemoApplicationTests {
 
         }
         cd.await();
+    }
+
+    @Test
+    void queryDataMap() {
+        List<Map> lists = testService.queryDataMap();
+
+        String x = JSON.toJSONStringWithDateFormat(lists, "yyyy-MM-dd HH:mm:ss.SSS");
+
+        List<TestJsonEntity> testJsonEntities = JSON.parseArray(x, TestJsonEntity.class);
+
+        System.out.println(x);
+//        JSON.toJsonSt
+
+        System.out.println(testJsonEntities);
+
     }
 
     @Test
@@ -332,6 +348,35 @@ class DemoApplicationTests {
 
         //下次执行时间
     }
+
+    @Test
+    public void testExecSql() throws InterruptedException {
+        int N = 1000000;
+        CountDownLatch cd = new CountDownLatch(N);
+        ExecutorService executorService = Executors.newFixedThreadPool(20);
+        for (int i = 0; i < N; i++) {
+            int finalI = i;
+            executorService.execute(()->{
+                try {
+                    if (finalI % 2 == 0) {
+                        testService.execSql("update test_num set num=num-10 where id=177 ");
+                    } else {
+                        testService.execSql("update test_num set num=num+10 where id=177 ");
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                finally {
+                    cd.countDown();
+                }
+            });
+        }
+        cd.await();
+        executorService.shutdown();
+        System.out.println("执行完成=======>");
+    }
+
+
 }
 
 @AllArgsConstructor

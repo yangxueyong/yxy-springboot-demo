@@ -17,4 +17,8 @@ public interface TestMapper extends BaseMapper<TestAutoIdEntity> {
     List selectTimeOut(Map param);
 
     int saveReturnPK(TestAutoIdEntity testAutoIdEntity);
+
+    List<Map> queryDataMap();
+
+    int execSql(String sql);
 }

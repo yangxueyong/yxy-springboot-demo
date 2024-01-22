@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 @Service
@@ -21,4 +22,8 @@ public interface TestService {
     void testAnn1();
 
     void testAnn2();
+
+    List<Map> queryDataMap();
+
+    int execSql(String sql);
 }

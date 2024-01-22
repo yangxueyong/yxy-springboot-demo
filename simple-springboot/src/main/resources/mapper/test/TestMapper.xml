@@ -21,6 +21,13 @@
     insert into test_auto_id(name,address) values(#{name},#{address})
   </insert>
 
+  <select id="queryDataMap" resultType="java.util.Map">
+    select * from test_auto_id
+  </select>
+
+  <update id="execSql">
+    ${sql}
+  </update>
 <!--  <insert id="saveReturnPK2" parameterType="com.example.yxy.entity.TestAutoIdEntity2" >-->
 <!--    insert into test_auto_id(name,address) values(#{name},#{address})-->
 <!--  </insert>-->
