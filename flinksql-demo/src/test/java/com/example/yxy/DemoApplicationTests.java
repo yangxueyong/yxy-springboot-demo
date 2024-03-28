@@ -59,23 +59,6 @@ class DemoApplicationTests {
                 ")";
         tenv.executeSql(sql1);
 
-
-        String sql2 = "CREATE TABLE t_p_cust_loan_prod (\n" +
-                "\tcust_no String,\n" +
-                "\tmain_prod_no String,\n" +
-                "\tsub_prod_no String,\n" +
-                "\tamount decimal(30,2) ,\n" +
-                "\tbegin_time TIMESTAMP ,\n" +
-                "\tend_time TIMESTAMP \n" +
-                ") with(\n" +
-                "   'connector' = 'jdbc',\n" +
-                "   'url' = 'jdbc:mysql://127.0.0.1:3316/test_flink?useSSL=false&serverTimezone=Asia/Shanghai&allowMultiQueries=true&allowPublicKeyRetrieval=true',\n" +
-                "   'table-name' = 't_p_cust_loan_prod',\n" +
-                "   'username'='root',\n" +
-                "   'password'='123456789'\n" +
-                ")";
-        tenv.executeSql(sql2);
-
         //在flink中创建一个名字为t_p_cust_prod的表，它映射到数据库test_flink中的t_p_cust_prod表
         String sql3 = "CREATE TABLE t_p_cust_prod (\n" +
                 "\tcust_no String,\n" +
@@ -134,21 +117,6 @@ class DemoApplicationTests {
         tenv.executeSql(sql1);
 
 
-        String sql2 = "CREATE TABLE t_p_cust_loan_prod (\n" +
-                "\tcust_no String,\n" +
-                "\tmain_prod_no String,\n" +
-                "\tsub_prod_no String,\n" +
-                "\tamount decimal(30,2) ,\n" +
-                "\tbegin_time TIMESTAMP ,\n" +
-                "\tend_time TIMESTAMP \n" +
-                ") with(\n" +
-                "   'connector' = 'jdbc',\n" +
-                "   'url' = 'jdbc:mysql://127.0.0.1:3316/test_flink?useSSL=false&serverTimezone=Asia/Shanghai&allowMultiQueries=true&allowPublicKeyRetrieval=true',\n" +
-                "   'table-name' = 't_p_cust_loan_prod',\n" +
-                "   'username'='root',\n" +
-                "   'password'='123456789'\n" +
-                ")";
-        tenv.executeSql(sql2);
 
         String sql3 = "CREATE TABLE t_p_cust_prod (\n" +
                 "\tcust_no String,\n" +
@@ -242,7 +210,10 @@ class DemoApplicationTests {
 
 
         String sql4 = "insert into t_p_cust_red_money(cust_no,prod_no,red_money,create_time)\n" +
-                " select k.cust_no,'Q00100101' as prod_no,trade_money * 0.2 as trade_money, localTimestamp as create_time \n" +
+                " select k.cust_no," +
+                " 'Q00100101' as prod_no," +
+                " trade_money * 0.2 as trade_money, " +
+                " localTimestamp as create_time \n" +
                 " from kafka_cust_red_money k inner join t_p_cust_main for system_time as of k.proctime as m on k.cust_no = m.cust_no " +
                 " left join t_p_cust_red_money for system_time as of k.proctime as r on k.cust_no = r.cust_no " +
                 " where r.cust_no is null and k.trade_money>10 and k.trade_channel='wx'";
