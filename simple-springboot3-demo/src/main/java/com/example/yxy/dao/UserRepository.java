@@ -1,6 +1,6 @@
-package com.example.springboot3r2dbcdemo.dao;
+package com.example.yxy.dao;
 
-import com.example.springboot3r2dbcdemo.entity.User;
+import com.example.yxy.entity.User;
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.r2dbc.repository.R2dbcRepository;
 import org.springframework.data.repository.query.Param;

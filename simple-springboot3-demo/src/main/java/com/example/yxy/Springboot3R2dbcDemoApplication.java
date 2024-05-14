@@ -1,4 +1,4 @@
-package com.example.springboot3r2dbcdemo;
+package com.example.yxy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

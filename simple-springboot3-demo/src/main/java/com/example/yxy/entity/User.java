@@ -1,4 +1,4 @@
-package com.example.springboot3r2dbcdemo.entity;
+package com.example.yxy.entity;
  
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>sse</title>
+</head>
+<body>
+<div>
+    <label>问题id</label>
+    <input type="text" id="questionId">
+    <button onclick="subscribe()">订阅</button>
+    <hr>
+    <label>F12-console控制台查看消息</label>
+</div>
+<script>
+    function subscribe() {
+        let questionId = document.getElementById('questionId').value;
+        let url = 'http://localhost:8080/sse/sub/' + questionId;
+        let eventSource = new EventSource(url);
+        eventSource.onmessage = function (e) {
+            console.log(e);
+            console.log(e.data);
+        };
+        eventSource.onopen = function (e) {
+            console.log(e,1);
+            // todo
+        };
+        eventSource.onerror = function (e) {
+            // todo
+            console.log(e,2);
+            eventSource.close()
+        };
+    }
+</script>
+</body>
+</html>

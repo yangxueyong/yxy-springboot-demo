@@ -1,8 +1,8 @@
-package com.example.springboot3r2dbcdemo.controller;
+package com.example.yxy.controller;
  
-import com.example.springboot3r2dbcdemo.entity.User;
-import com.example.springboot3r2dbcdemo.entity.res.ApiResponse;
-import com.example.springboot3r2dbcdemo.service.UserService;
+import com.example.yxy.entity.User;
+import com.example.yxy.entity.res.ApiResponse;
+import com.example.yxy.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;

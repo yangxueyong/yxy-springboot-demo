@@ -1,7 +1,7 @@
-package com.example.springboot3r2dbcdemo.service;
+package com.example.yxy.service;
  
-import com.example.springboot3r2dbcdemo.dao.UserRepository;
-import com.example.springboot3r2dbcdemo.entity.User;
+import com.example.yxy.dao.UserRepository;
+import com.example.yxy.entity.User;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;

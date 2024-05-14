@@ -1,6 +1,6 @@
-package com.example.springboot3r2dbcdemo.service;
+package com.example.yxy.service;
  
-import com.example.springboot3r2dbcdemo.entity.User;
+import com.example.yxy.entity.User;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
  

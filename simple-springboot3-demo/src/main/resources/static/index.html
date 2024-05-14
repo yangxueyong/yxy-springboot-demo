@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<body>
+    <div id="app">
+
+    </div>
+</body>
+<script>
+    const instance = axios.create({
+        baseURL: 'http://localhost:8080',
+        timeout: 100000,
+        responseType: 'stream' ,
+        onDownloadProgress: function (eve){
+            console.log(eve);
+            document.getElementById("app").innerHTML = eve.event.currentTarget.responseText;
+        }
+    });
+    // 向给定ID的用户发起请求
+    instance.get('/sse/sse')
+        .then(function (response) {
+            // 处理成功情况
+            console.log(response);
+        })
+        .catch(function (error) {
+            // 处理错误情况
+            console.log(error);
+        })
+        .finally(function () {
+            // 总是会执行
+        });
+</script>
+</html>
