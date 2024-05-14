@@ -143,8 +143,13 @@ class DemoApplicationTests {
     /**
      * @link https://nightlies.apache.org/flink/flink-docs-release-1.15/zh/docs/connectors/table/kafka/
      *
+     * bin/kafka-topics.sh --create --topic test_kafka_cust_red_money --replication-factor 1 --partitions 2 --zookeeper localhost:2181
+     * bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test_kafka_cust_red_money
+     * bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test_kafka_cust_red_money
+     *
      * 实时处理，元数据为kafka
      * {"cust_no":"zhangsan","trade_money":12,"trade_channel":"wx","trade_time":"2023-01-01 10:10:01"}
+     * {"cust_no":"wangwu","trade_money":11,"trade_channel":"wx","trade_time":"2023-01-01 10:10:01"}
      *
      * 订阅kafka消息，给客户派红包(将结果数据保存到表)，红包为交易金额的20%
      * 条件1：交易金额必须大于10元，且交易渠道必须为微信支付
