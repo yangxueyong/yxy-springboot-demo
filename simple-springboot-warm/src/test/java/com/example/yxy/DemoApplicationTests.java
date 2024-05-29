@@ -103,6 +103,7 @@ class DemoApplicationTests {
         ExpressionParser parser = new SpelExpressionParser(config);
 
         StandardEvaluationContext context = new StandardEvaluationContext();
+        //设置变量
         Person person = new Person("zhangsan", 1);
         context.setVariable("person", person);
 
@@ -110,6 +111,7 @@ class DemoApplicationTests {
                 "#person.type==1?'结果是1':'结果不是1'").getValue(context, String.class);
         System.out.println(result);
 
+        //spel表达式，满足条件输出 结果是1 否则 输出结果不是1
         result = parser.parseExpression(
                 "#person.name=='zhangsan' && #person.type==1 ?'结果是1':'结果不是1'").getValue(context, String.class);
         System.out.println(result);

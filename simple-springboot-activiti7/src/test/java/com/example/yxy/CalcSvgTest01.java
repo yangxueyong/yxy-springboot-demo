@@ -35,7 +35,7 @@ class CalcSvgTest01 {
         RepositoryService repositoryService = defaultProcessEngine.getRepositoryService();
         RuntimeService runtimeService = defaultProcessEngine.getRuntimeService();
 
-        String PROCESSID = "b0b79649-1c8e-11ef-ada6-c6b7d5de4e0a";
+        String PROCESSID = "a28d7205-1d81-11ef-8c79-aa82f9a380a8";
 
         ProcessInstance processInstance = runtimeService.createProcessInstanceQuery()
                 .processInstanceId(PROCESSID)

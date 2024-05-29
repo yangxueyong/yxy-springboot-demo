@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="gateway-inc-test01" name="gateway-inc-test01" isExecutable="true">
+    <documentation>gateway-inc-test01</documentation>
+    <startEvent id="startEvent1" name="包含网关测试-开始"></startEvent>
+    <userTask id="sid-5FBB2A70-D40E-4533-B143-00A9D551EAB8" name="包含网关测试-员工请假"></userTask>
+    <sequenceFlow id="sid-C3E5EDAF-4A66-4AEB-B6C6-670CC8F0C7CE" sourceRef="startEvent1" targetRef="sid-5FBB2A70-D40E-4533-B143-00A9D551EAB8"></sequenceFlow>
+    <sequenceFlow id="sid-26B00F23-CF25-45E0-A8F7-3568A52606CD" sourceRef="sid-5FBB2A70-D40E-4533-B143-00A9D551EAB8" targetRef="sid-1E57253A-40D5-4800-BB91-84E5CC4AE705"></sequenceFlow>
+    <inclusiveGateway id="sid-1E57253A-40D5-4800-BB91-84E5CC4AE705"></inclusiveGateway>
+    <userTask id="sid-C6AE668E-63C5-4327-A2D6-309A91DD223B" name="包含网关测试-项目经理审批"></userTask>
+    <userTask id="sid-7502D573-20AC-453C-BDB7-65652B6A9E81" name="包含网关测试-部门经理审批"></userTask>
+    <sequenceFlow id="sid-77671DF4-A3E6-4E4F-82BF-92C17F1DB7FF" sourceRef="sid-1E57253A-40D5-4800-BB91-84E5CC4AE705" targetRef="sid-7502D573-20AC-453C-BDB7-65652B6A9E81"></sequenceFlow>
+    <userTask id="sid-D3DF5BB8-4F65-4EEA-B5AC-B8C94998A350" name="包含网关测试-ceo审批"></userTask>
+    <sequenceFlow id="sid-1427B7B5-DE37-4877-B160-02686D771CE8" sourceRef="sid-1E57253A-40D5-4800-BB91-84E5CC4AE705" targetRef="sid-D3DF5BB8-4F65-4EEA-B5AC-B8C94998A350"></sequenceFlow>
+    <userTask id="sid-08AD32D2-9E07-4AB9-9000-9C6471AFBCBC" name="包含网关测试-财务审批"></userTask>
+    <sequenceFlow id="sid-BAA098B2-7F85-45A1-A70A-3AA978AA496F" sourceRef="sid-7502D573-20AC-453C-BDB7-65652B6A9E81" targetRef="sid-08AD32D2-9E07-4AB9-9000-9C6471AFBCBC"></sequenceFlow>
+    <endEvent id="sid-1DA51591-8D65-4778-90B3-2ACCDD2DA619" name="包含网关测试-结束"></endEvent>
+    <sequenceFlow id="sid-99F8B653-E534-4AFB-8C48-B9EA5DFB0201" sourceRef="sid-08AD32D2-9E07-4AB9-9000-9C6471AFBCBC" targetRef="sid-1DA51591-8D65-4778-90B3-2ACCDD2DA619"></sequenceFlow>
+    <sequenceFlow id="sid-F3DB2F3F-B5EF-44AB-82A4-517A287E3C46" sourceRef="sid-C6AE668E-63C5-4327-A2D6-309A91DD223B" targetRef="sid-08AD32D2-9E07-4AB9-9000-9C6471AFBCBC"></sequenceFlow>
+    <sequenceFlow id="sid-7496B7D3-FA95-4B3E-9613-72715D45DC78" sourceRef="sid-D3DF5BB8-4F65-4EEA-B5AC-B8C94998A350" targetRef="sid-08AD32D2-9E07-4AB9-9000-9C6471AFBCBC"></sequenceFlow>
+    <sequenceFlow id="sid-BEFEB0E9-EB40-4ADF-B519-1CD0BA90DD10" name="小于等于3天" sourceRef="sid-1E57253A-40D5-4800-BB91-84E5CC4AE705" targetRef="sid-C6AE668E-63C5-4327-A2D6-309A91DD223B">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${day <= 3}]]></conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_gateway-inc-test01">
+    <bpmndi:BPMNPlane bpmnElement="gateway-inc-test01" id="BPMNPlane_gateway-inc-test01">
+      <bpmndi:BPMNShape bpmnElement="startEvent1" id="BPMNShape_startEvent1">
+        <omgdc:Bounds height="30.0" width="30.0" x="90.0" y="205.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-5FBB2A70-D40E-4533-B143-00A9D551EAB8" id="BPMNShape_sid-5FBB2A70-D40E-4533-B143-00A9D551EAB8">
+        <omgdc:Bounds height="80.0" width="100.0" x="215.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-1E57253A-40D5-4800-BB91-84E5CC4AE705" id="BPMNShape_sid-1E57253A-40D5-4800-BB91-84E5CC4AE705">
+        <omgdc:Bounds height="40.0" width="40.0" x="360.0" y="200.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-C6AE668E-63C5-4327-A2D6-309A91DD223B" id="BPMNShape_sid-C6AE668E-63C5-4327-A2D6-309A91DD223B">
+        <omgdc:Bounds height="80.0" width="100.0" x="510.0" y="15.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-7502D573-20AC-453C-BDB7-65652B6A9E81" id="BPMNShape_sid-7502D573-20AC-453C-BDB7-65652B6A9E81">
+        <omgdc:Bounds height="80.0" width="100.0" x="510.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-D3DF5BB8-4F65-4EEA-B5AC-B8C94998A350" id="BPMNShape_sid-D3DF5BB8-4F65-4EEA-B5AC-B8C94998A350">
+        <omgdc:Bounds height="80.0" width="100.0" x="510.0" y="330.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-08AD32D2-9E07-4AB9-9000-9C6471AFBCBC" id="BPMNShape_sid-08AD32D2-9E07-4AB9-9000-9C6471AFBCBC">
+        <omgdc:Bounds height="80.0" width="100.0" x="705.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-1DA51591-8D65-4778-90B3-2ACCDD2DA619" id="BPMNShape_sid-1DA51591-8D65-4778-90B3-2ACCDD2DA619">
+        <omgdc:Bounds height="28.0" width="28.0" x="850.0" y="206.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-C3E5EDAF-4A66-4AEB-B6C6-670CC8F0C7CE" id="BPMNEdge_sid-C3E5EDAF-4A66-4AEB-B6C6-670CC8F0C7CE">
+        <omgdi:waypoint x="120.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="215.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-77671DF4-A3E6-4E4F-82BF-92C17F1DB7FF" id="BPMNEdge_sid-77671DF4-A3E6-4E4F-82BF-92C17F1DB7FF">
+        <omgdi:waypoint x="399.55307262569835" y="220.44692737430168"></omgdi:waypoint>
+        <omgdi:waypoint x="510.0" y="220.1392757660167"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-BEFEB0E9-EB40-4ADF-B519-1CD0BA90DD10" id="BPMNEdge_sid-BEFEB0E9-EB40-4ADF-B519-1CD0BA90DD10">
+        <omgdi:waypoint x="380.5" y="200.5"></omgdi:waypoint>
+        <omgdi:waypoint x="380.5" y="55.0"></omgdi:waypoint>
+        <omgdi:waypoint x="510.0" y="55.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-BAA098B2-7F85-45A1-A70A-3AA978AA496F" id="BPMNEdge_sid-BAA098B2-7F85-45A1-A70A-3AA978AA496F">
+        <omgdi:waypoint x="610.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="705.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-99F8B653-E534-4AFB-8C48-B9EA5DFB0201" id="BPMNEdge_sid-99F8B653-E534-4AFB-8C48-B9EA5DFB0201">
+        <omgdi:waypoint x="805.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="850.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-F3DB2F3F-B5EF-44AB-82A4-517A287E3C46" id="BPMNEdge_sid-F3DB2F3F-B5EF-44AB-82A4-517A287E3C46">
+        <omgdi:waypoint x="607.2727272727273" y="95.0"></omgdi:waypoint>
+        <omgdi:waypoint x="707.7272727272727" y="180.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-7496B7D3-FA95-4B3E-9613-72715D45DC78" id="BPMNEdge_sid-7496B7D3-FA95-4B3E-9613-72715D45DC78">
+        <omgdi:waypoint x="610.0" y="331.53846153846155"></omgdi:waypoint>
+        <omgdi:waypoint x="705.0" y="258.46153846153845"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-26B00F23-CF25-45E0-A8F7-3568A52606CD" id="BPMNEdge_sid-26B00F23-CF25-45E0-A8F7-3568A52606CD">
+        <omgdi:waypoint x="315.0" y="220.2164502164502"></omgdi:waypoint>
+        <omgdi:waypoint x="360.4130434782609" y="220.41304347826087"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-1427B7B5-DE37-4877-B160-02686D771CE8" id="BPMNEdge_sid-1427B7B5-DE37-4877-B160-02686D771CE8">
+        <omgdi:waypoint x="380.5" y="239.5"></omgdi:waypoint>
+        <omgdi:waypoint x="380.5" y="370.0"></omgdi:waypoint>
+        <omgdi:waypoint x="510.0" y="370.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

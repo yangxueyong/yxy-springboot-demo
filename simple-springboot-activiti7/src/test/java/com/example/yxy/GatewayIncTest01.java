@@ -14,8 +14,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 包含网关
+ * 线上写了条件就必须满足条件才能执行，线上不写条件就直接执行。
+ * @author yxy
+ * @date 2024/05/28
+ */
 @SpringBootTest
-class LineVarTest01 {
+class GatewayIncTest01 {
 
 
     /**
@@ -27,15 +33,15 @@ class LineVarTest01 {
         ProcessEngine defaultProcessEngine = ProcessEngines.getDefaultProcessEngine();
         RepositoryService repositoryService = defaultProcessEngine.getRepositoryService();
         Deployment deploy = repositoryService.createDeployment()
-                .key("line-var-test1-1")
+                .key("gateway-inc-test01")
                 //加载相对路径
-                .addClasspathResource("process/line-var-test01.bpmn20.xml")
-                .name("线变量测试流程-1")
+                .addClasspathResource("process/gateway-inc-test01.bpmn20.xml")
+                .name("网关包含测试流程-1")
                 .deploy();
         /**
-         * 部署ID: 892dfdfb-1cd1-11ef-963d-6ed3dad6a163
-         * 部署Name: 线变量测试流程-1
-         * 部署Key: line-var-test1-1
+         * 部署ID: 4549f378-1d53-11ef-bed4-6ed3dad6a163
+         * 部署Name: 网关包含测试流程-1
+         * 部署Key: gateway-inc-test01
          */
         System.out.printf("部署ID: %s\n", deploy.getId());
         System.out.printf("部署Name: %s\n", deploy.getName());
@@ -52,7 +58,7 @@ class LineVarTest01 {
         RepositoryService repositoryService = defaultProcessEngine.getRepositoryService();
         List<Deployment> deploymentList = repositoryService
                 .createDeploymentQuery()
-                .deploymentName("线变量测试流程-1").list();
+                .deploymentName("网关包含测试流程-1").list();
         System.out.println("部署信息=======================================");
         for (Deployment deploy : deploymentList) {
             System.out.printf("部署ID: %s\n", deploy.getId());
@@ -63,13 +69,13 @@ class LineVarTest01 {
         System.out.println("定义信息=======================================");
         List<ProcessDefinition> processDefinitionList = repositoryService
                 .createProcessDefinitionQuery()
-                .deploymentId("892dfdfb-1cd1-11ef-963d-6ed3dad6a163")
+                .deploymentId("4549f378-1d53-11ef-bed4-6ed3dad6a163")
                 .list();
         processDefinitionList.forEach(processDefinition -> {
             /**
-             * 流程定义ID: line-var-test01:3:893a32fd-1cd1-11ef-963d-6ed3dad6a163
-             * 流程定义名称: line-var-test01
-             * 流程定义DeploymentId: 892dfdfb-1cd1-11ef-963d-6ed3dad6a163
+             * 流程定义ID: gateway-inc-test01:1:45531b3a-1d53-11ef-bed4-6ed3dad6a163
+             * 流程定义名称: gateway-inc-test01
+             * 流程定义DeploymentId: 4549f378-1d53-11ef-bed4-6ed3dad6a163
              */
             System.out.printf("流程定义ID: %s\n", processDefinition.getId());
             System.out.printf("流程定义名称: %s\n", processDefinition.getName());
@@ -87,11 +93,11 @@ class LineVarTest01 {
         ProcessEngine defaultProcessEngine = ProcessEngines.getDefaultProcessEngine();
         RuntimeService runtimeService = defaultProcessEngine.getRuntimeService();
         ProcessInstance processInstance = runtimeService
-                .startProcessInstanceById("line-var-test01:3:893a32fd-1cd1-11ef-963d-6ed3dad6a163");
+                .startProcessInstanceById("gateway-inc-test01:1:45531b3a-1d53-11ef-bed4-6ed3dad6a163");
         /**
-         * 流程实例ID: ad3d419f-1cd1-11ef-9f94-6ed3dad6a163
+         * 流程实例ID: f05d4546-1d53-11ef-b9f1-6ed3dad6a163
          * 流程实例Name: null
-         * 流程实例ProcessDefinitionId: line-var-test01:3:893a32fd-1cd1-11ef-963d-6ed3dad6a163
+         * 流程实例ProcessDefinitionId: gateway-inc-test01:1:45531b3a-1d53-11ef-bed4-6ed3dad6a163
          */
         System.out.printf("流程实例ID: %s\n", processInstance.getId());
         System.out.printf("流程实例Name: %s\n", processInstance.getName());
@@ -107,16 +113,16 @@ class LineVarTest01 {
         ProcessEngine defaultProcessEngine = ProcessEngines.getDefaultProcessEngine();
         TaskService taskService = defaultProcessEngine.getTaskService();
         List<Task> taskList = taskService.createTaskQuery()
-                .processInstanceId("ad3d419f-1cd1-11ef-9f94-6ed3dad6a163")
+                .processInstanceId("f05d4546-1d53-11ef-b9f1-6ed3dad6a163")
                 .active()
                 .list();
         for (Task task : taskList) {
             /**
-             * 任务ID: ad3f1663-1cd1-11ef-9f94-6ed3dad6a163
-             * 任务名称: 线-变量-员工请假
-             * 任务流程实例ID: ad3d419f-1cd1-11ef-9f94-6ed3dad6a163
-             * 任务流程定义ID: line-var-test01:3:893a32fd-1cd1-11ef-963d-6ed3dad6a163
-             * 任务创建时间: Tue May 28 17:07:15 CST 2024
+             * 任务ID: f05ea4da-1d53-11ef-b9f1-6ed3dad6a163
+             * 任务名称: 包含网关测试-员工请假
+             * 任务流程实例ID: f05d4546-1d53-11ef-b9f1-6ed3dad6a163
+             * 任务流程定义ID: gateway-inc-test01:1:45531b3a-1d53-11ef-bed4-6ed3dad6a163
+             * 任务创建时间: Wed May 29 08:39:42 CST 2024
              * 任务办理人: null
              */
             System.out.printf("任务ID: %s\n", task.getId());
@@ -140,12 +146,13 @@ class LineVarTest01 {
     void completeTask(){
         ProcessEngine defaultProcessEngine = ProcessEngines.getDefaultProcessEngine();
         TaskService taskService = defaultProcessEngine.getTaskService();
-        String taskId = "ad3f1663-1cd1-11ef-9f94-6ed3dad6a163";
+        String taskId = "f05ea4da-1d53-11ef-b9f1-6ed3dad6a163";
         Map<String, Object> variables = new HashMap<>();
-        variables.put("day", 8);
+        variables.put("day", 5);
         //完成任务之后，应该是部门经理审批
         //默认为全局变量，也就是说下一节点也能获取这个变量
         taskService.complete(taskId, variables);
+//        taskService.complete(taskId);
     }
 
 
