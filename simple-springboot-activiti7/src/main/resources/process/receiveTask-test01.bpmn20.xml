@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="receiveTask-test01" name="receiveTask-test01" isExecutable="true">
+    <documentation>receiveTask-test01</documentation>
+    <startEvent id="startEvent1" name="receiveTask测试-开始"></startEvent>
+    <userTask id="sid-851BDF1A-18E8-48FC-B116-B3349191022B" name="receiveTask测试-统计开始"></userTask>
+    <sequenceFlow id="sid-78F6AA30-695F-443F-B800-259E10891D8D" sourceRef="startEvent1" targetRef="sid-851BDF1A-18E8-48FC-B116-B3349191022B"></sequenceFlow>
+    <sequenceFlow id="sid-BD3DD93D-6C1D-4B7F-8B08-5E109D41E15D" sourceRef="sid-851BDF1A-18E8-48FC-B116-B3349191022B" targetRef="receiveTask测试-发送"></sequenceFlow>
+    <receiveTask id="receiveTask测试-发送" name="receiveTask测试-发送"></receiveTask>
+    <endEvent id="sid-70CAC554-5F23-4CD3-A8FD-9D5EA7855665" name="receiveTask测试-结束"></endEvent>
+    <sequenceFlow id="sid-4A8335FA-9FC8-4A6F-B07D-31F7111ACA1A" sourceRef="receiveTask测试-发送" targetRef="sid-70CAC554-5F23-4CD3-A8FD-9D5EA7855665"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_receiveTask-test01">
+    <bpmndi:BPMNPlane bpmnElement="receiveTask-test01" id="BPMNPlane_receiveTask-test01">
+      <bpmndi:BPMNShape bpmnElement="startEvent1" id="BPMNShape_startEvent1">
+        <omgdc:Bounds height="30.0" width="30.0" x="100.0" y="160.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-851BDF1A-18E8-48FC-B116-B3349191022B" id="BPMNShape_sid-851BDF1A-18E8-48FC-B116-B3349191022B">
+        <omgdc:Bounds height="80.0" width="100.0" x="180.0" y="135.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="receiveTask测试-发送" id="BPMNShape_receiveTask测试-发送">
+        <omgdc:Bounds height="80.0" width="100.0" x="375.0" y="135.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-70CAC554-5F23-4CD3-A8FD-9D5EA7855665" id="BPMNShape_sid-70CAC554-5F23-4CD3-A8FD-9D5EA7855665">
+        <omgdc:Bounds height="28.0" width="28.0" x="555.0" y="161.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-BD3DD93D-6C1D-4B7F-8B08-5E109D41E15D" id="BPMNEdge_sid-BD3DD93D-6C1D-4B7F-8B08-5E109D41E15D">
+        <omgdi:waypoint x="280.0" y="175.0"></omgdi:waypoint>
+        <omgdi:waypoint x="375.0" y="175.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-4A8335FA-9FC8-4A6F-B07D-31F7111ACA1A" id="BPMNEdge_sid-4A8335FA-9FC8-4A6F-B07D-31F7111ACA1A">
+        <omgdi:waypoint x="475.0" y="175.0"></omgdi:waypoint>
+        <omgdi:waypoint x="555.0" y="175.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-78F6AA30-695F-443F-B800-259E10891D8D" id="BPMNEdge_sid-78F6AA30-695F-443F-B800-259E10891D8D">
+        <omgdi:waypoint x="130.0" y="175.0"></omgdi:waypoint>
+        <omgdi:waypoint x="180.0" y="175.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -89,30 +89,36 @@ class DemoApplicationTests3 {
         tenv.executeSql(sql3);
 
         String sql4 = "insert into t_p_cust_prod(cust_no,main_prod_no,num,amount)\n" +
-                " select cust_no,main_prod_no,count(*) num, sum(amount) as amount \n" +
-                " from t_p_cust_deposit_prod p inner join t_p_cust_label_all c on p.cust_no=c.cust_no " +
-                " group by cust_no,main_prod_no";
+                " select c.cust_no,p.main_prod_no,count(*) num, sum(p.amount) as amount \n" +
+                " from t_p_cust_deposit_prod p inner join t_p_cust_label_all c on p.cust_no=c.cust_no \n" +
+                " and c.c0010102='2' and p.main_prod_no='A00001'" +
+                " group by c.cust_no,p.main_prod_no";
+        System.out.println(sql4);
         tenv.executeSql(sql4).print();
     }
 
-
-
     /**
-     * @link https://nightlies.apache.org/flink/flink-docs-release-1.15/zh/docs/connectors/table/filesystem/
+     * @link https://nightlies.apache.org/flink/flink-docs-release-1.15/zh/docs/connectors/table/jdbc/
      *
-     * 元数据为文件
+     * 元数据为表
      * 将结果数据保存到表
      *
      */
     @Test
-    void batchMetaFileSaveToCustProdDB() {
+    void batchMetaFileDataSaveToCustProdDB() {
+        //得到一个执行环境
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+        //并行度
         env.setParallelism(1);
+        //创建一个流表的执行环境
         StreamTableEnvironment tenv = StreamTableEnvironment.create(env);
 
         /**
-         * 文件型数据源
-         * flink表定义的字段必须与文件中的字段一一对应
+         *
+         * 1，flink的表名可以与数据库中的表名不一样，但建议保持一致
+         * 2，flink的表字段要与数据库中的字段保持一致
+         * 3，flink表的字段类型和数据库中的字段类型不是完全一样
+         *
          */
         String sql1 = "CREATE TABLE t_p_cust_deposit_prod (\n" +
                 "\tcust_no String,\n" +
@@ -130,8 +136,7 @@ class DemoApplicationTests3 {
                 ")";
         tenv.executeSql(sql1);
 
-
-
+        //在flink中创建一个名字为t_p_cust_prod的表，它映射到数据库test_flink中的t_p_cust_prod表
         String sql3 = "CREATE TABLE t_p_cust_prod (\n" +
                 "\tcust_no String,\n" +
                 "\tmain_prod_no String,\n" +
@@ -147,11 +152,34 @@ class DemoApplicationTests3 {
                 ")";
         tenv.executeSql(sql3);
 
+        //在flink中创建一个名字为t_p_cust_prod的表，它映射到数据库test_flink中的t_p_cust_prod表
+        sql3 = "CREATE TABLE t_p_cust_label_all (\n" +
+                "\tcust_no String,\n" +
+                "\tcust_name String,\n" +
+                "\tphone String,\n" +
+                "\tc0010101 String,\n" +
+                "\tc0010102 String,\n" +
+                "\taum decimal(30,2),\n" +
+                "\tlum decimal(30,2) " +
+                ") with(\n" +
+                "   'connector' = 'jdbc',\n" +
+                "   'url' = 'jdbc:mysql://127.0.0.1:3316/test_flink?useSSL=false&serverTimezone=Asia/Shanghai&allowMultiQueries=true&allowPublicKeyRetrieval=true',\n" +
+                "   'table-name' = 't_p_cust_label_all',\n" +
+                "   'username'='root',\n" +
+                "   'password'='123456789'\n" +
+                ")";
+        tenv.executeSql(sql3);
+
         String sql4 = "insert into t_p_cust_prod(cust_no,main_prod_no,num,amount)\n" +
-                "select cust_no,main_prod_no,count(*) num, sum(amount) as amount \n" +
-                "from t_p_cust_deposit_prod group by cust_no,main_prod_no";
+                " select c.cust_no,p.main_prod_no,count(*) num, sum(p.amount) as amount \n" +
+                " from t_p_cust_deposit_prod p inner join t_p_cust_label_all c on p.cust_no=c.cust_no \n" +
+                " and c.c0010102='2' and p.main_prod_no='A00001'" +
+                " group by c.cust_no,p.main_prod_no";
+        System.out.println(sql4);
         tenv.executeSql(sql4).print();
     }
+
+
 
 
     /**
@@ -164,6 +192,7 @@ class DemoApplicationTests3 {
      * 实时处理，元数据为kafka
      * {"cust_no":"zhangsan","trade_money":12,"trade_channel":"wx","trade_time":"2023-01-01 10:10:01"}
      * {"cust_no":"wangwu","trade_money":11,"trade_channel":"wx","trade_time":"2023-01-01 10:10:01"}
+     * {"cust_no":"wangwu","trade_money":9,"trade_channel":"wx","trade_time":"2023-01-01 10:10:01"}
      *
      * 订阅kafka消息，给客户派红包(将结果数据保存到表)，红包为交易金额的20%
      * 条件1：交易金额必须大于10元，且交易渠道必须为微信支付
@@ -243,9 +272,6 @@ class DemoApplicationTests3 {
         System.out.println(sql4);
 
         tenv.executeSql(sql4).print();
-
-
-
     }
 
 
