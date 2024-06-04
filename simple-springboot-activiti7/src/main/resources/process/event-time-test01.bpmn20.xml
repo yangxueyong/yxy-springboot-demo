@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="event-time-test01" name="event-time-test01" isExecutable="true">
+    <documentation>event-time-test01</documentation>
+    <startEvent id="sid-137AB44B-3C6E-4747-82EF-CBA8FD4664A3" name="事件-定期时间-测试开始" activiti:isInterrupting="false">
+      <timerEventDefinition>
+        <timeCycle>R3/PT10S</timeCycle>
+      </timerEventDefinition>
+    </startEvent>
+    <sequenceFlow id="sid-8AA13932-5705-4F13-90B5-9BD21DB4F1AE" sourceRef="sid-137AB44B-3C6E-4747-82EF-CBA8FD4664A3" targetRef="sid-B324CAD9-3C3A-4D6B-AB2F-9B3724B7DAEB"></sequenceFlow>
+    <serviceTask id="sid-B324CAD9-3C3A-4D6B-AB2F-9B3724B7DAEB" name="事件-定期时间-员工服务" activiti:class="com.example.yxy.delegate.MyDelegate"></serviceTask>
+    <endEvent id="sid-6EA9C098-D032-427E-89EF-C1B9D1A696EA" name="事件-定期时间-测试结束"></endEvent>
+    <sequenceFlow id="sid-9C2ADF04-E0C2-4C8F-8830-A2366A2A102A" sourceRef="sid-B324CAD9-3C3A-4D6B-AB2F-9B3724B7DAEB" targetRef="sid-6EA9C098-D032-427E-89EF-C1B9D1A696EA"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_event-time-test01">
+    <bpmndi:BPMNPlane bpmnElement="event-time-test01" id="BPMNPlane_event-time-test01">
+      <bpmndi:BPMNShape bpmnElement="sid-137AB44B-3C6E-4747-82EF-CBA8FD4664A3" id="BPMNShape_sid-137AB44B-3C6E-4747-82EF-CBA8FD4664A3">
+        <omgdc:Bounds height="31.0" width="31.0" x="99.5" y="162.5"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-B324CAD9-3C3A-4D6B-AB2F-9B3724B7DAEB" id="BPMNShape_sid-B324CAD9-3C3A-4D6B-AB2F-9B3724B7DAEB">
+        <omgdc:Bounds height="80.0" width="100.0" x="225.0" y="138.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-6EA9C098-D032-427E-89EF-C1B9D1A696EA" id="BPMNShape_sid-6EA9C098-D032-427E-89EF-C1B9D1A696EA">
+        <omgdc:Bounds height="28.0" width="28.0" x="405.0" y="164.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-8AA13932-5705-4F13-90B5-9BD21DB4F1AE" id="BPMNEdge_sid-8AA13932-5705-4F13-90B5-9BD21DB4F1AE">
+        <omgdi:waypoint x="131.49992138499977" y="178.4498435066301"></omgdi:waypoint>
+        <omgdi:waypoint x="225.0" y="178.15673981191222"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-9C2ADF04-E0C2-4C8F-8830-A2366A2A102A" id="BPMNEdge_sid-9C2ADF04-E0C2-4C8F-8830-A2366A2A102A">
+        <omgdi:waypoint x="325.0" y="178.0"></omgdi:waypoint>
+        <omgdi:waypoint x="405.0" y="178.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

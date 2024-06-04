@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="event-time-middle-test01" name="event-time-middle-test01" isExecutable="true">
+    <documentation>event-time-middle-test01</documentation>
+    <startEvent id="startEvent1" name="事件-中间时间-开始"></startEvent>
+    <userTask id="sid-85F9E372-31EC-49C7-B3D1-83B9467DD62D" name="事件-中间时间-申请出库"></userTask>
+    <sequenceFlow id="sid-3A6FCE25-3A54-4010-9202-F7C1C3D38117" sourceRef="startEvent1" targetRef="sid-85F9E372-31EC-49C7-B3D1-83B9467DD62D"></sequenceFlow>
+    <intermediateCatchEvent id="sid-88C2A68B-A0E1-42DC-8171-E7FB99E5A66A" name="事件-中间时间">
+      <timerEventDefinition>
+        <timeDuration>PT10S</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
+    <sequenceFlow id="sid-D27F3968-2F48-4175-90E4-1E92795FFF6E" sourceRef="sid-85F9E372-31EC-49C7-B3D1-83B9467DD62D" targetRef="sid-88C2A68B-A0E1-42DC-8171-E7FB99E5A66A"></sequenceFlow>
+    <userTask id="sid-728448B2-14D6-4250-AC57-B34357079C1D" name="事件-中间时间-财务审批"></userTask>
+    <sequenceFlow id="sid-EC60BB59-1AE2-42EE-A53D-C077A640A45B" sourceRef="sid-88C2A68B-A0E1-42DC-8171-E7FB99E5A66A" targetRef="sid-728448B2-14D6-4250-AC57-B34357079C1D"></sequenceFlow>
+    <endEvent id="sid-74AE25B8-4BCD-4A8D-9713-0A4AECDBA334" name="事件-中间时间-结束"></endEvent>
+    <sequenceFlow id="sid-854AC6C0-D18B-4F0E-BEF1-51481E1B6FD5" sourceRef="sid-728448B2-14D6-4250-AC57-B34357079C1D" targetRef="sid-74AE25B8-4BCD-4A8D-9713-0A4AECDBA334"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_event-time-middle-test01">
+    <bpmndi:BPMNPlane bpmnElement="event-time-middle-test01" id="BPMNPlane_event-time-middle-test01">
+      <bpmndi:BPMNShape bpmnElement="startEvent1" id="BPMNShape_startEvent1">
+        <omgdc:Bounds height="30.0" width="30.0" x="100.0" y="163.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-85F9E372-31EC-49C7-B3D1-83B9467DD62D" id="BPMNShape_sid-85F9E372-31EC-49C7-B3D1-83B9467DD62D">
+        <omgdc:Bounds height="80.0" width="100.0" x="175.0" y="138.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-88C2A68B-A0E1-42DC-8171-E7FB99E5A66A" id="BPMNShape_sid-88C2A68B-A0E1-42DC-8171-E7FB99E5A66A">
+        <omgdc:Bounds height="31.0" width="31.0" x="320.0" y="162.5"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-728448B2-14D6-4250-AC57-B34357079C1D" id="BPMNShape_sid-728448B2-14D6-4250-AC57-B34357079C1D">
+        <omgdc:Bounds height="80.0" width="100.0" x="396.0" y="138.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-74AE25B8-4BCD-4A8D-9713-0A4AECDBA334" id="BPMNShape_sid-74AE25B8-4BCD-4A8D-9713-0A4AECDBA334">
+        <omgdc:Bounds height="28.0" width="28.0" x="541.0" y="164.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-854AC6C0-D18B-4F0E-BEF1-51481E1B6FD5" id="BPMNEdge_sid-854AC6C0-D18B-4F0E-BEF1-51481E1B6FD5">
+        <omgdi:waypoint x="496.0" y="178.0"></omgdi:waypoint>
+        <omgdi:waypoint x="541.0" y="178.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-D27F3968-2F48-4175-90E4-1E92795FFF6E" id="BPMNEdge_sid-D27F3968-2F48-4175-90E4-1E92795FFF6E">
+        <omgdi:waypoint x="275.0" y="178.22522522522522"></omgdi:waypoint>
+        <omgdi:waypoint x="320.0001623220164" y="178.42792865910818"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-3A6FCE25-3A54-4010-9202-F7C1C3D38117" id="BPMNEdge_sid-3A6FCE25-3A54-4010-9202-F7C1C3D38117">
+        <omgdi:waypoint x="130.0" y="178.0"></omgdi:waypoint>
+        <omgdi:waypoint x="175.0" y="178.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-EC60BB59-1AE2-42EE-A53D-C077A640A45B" id="BPMNEdge_sid-EC60BB59-1AE2-42EE-A53D-C077A640A45B">
+        <omgdi:waypoint x="351.99983471330506" y="178.42727347857587"></omgdi:waypoint>
+        <omgdi:waypoint x="396.0" y="178.22727272727272"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
