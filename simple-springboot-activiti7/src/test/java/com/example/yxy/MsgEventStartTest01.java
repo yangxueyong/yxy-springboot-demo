@@ -13,16 +13,13 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 /**
- * 边界事件测试
- *
- * 中断事件 表示 中断当前节点的执行，并执行边界事件。
- * 非中断事件 表示 不中断当前节点的执行，并执行边界事件。
+ * 以消息事件启动流程测试
  *
  * @author yxy
  * @date 2024/05/29
  */
 @SpringBootTest
-class EventBorderTimeTest01 {
+class MsgEventStartTest01 {
 
 
     /**
@@ -34,10 +31,10 @@ class EventBorderTimeTest01 {
         ProcessEngine defaultProcessEngine = ProcessEngines.getDefaultProcessEngine();
         RepositoryService repositoryService = defaultProcessEngine.getRepositoryService();
         Deployment deploy = repositoryService.createDeployment()
-                .key("event-border-time-test01")
+                .key("event-msg-start-test01")
                 //加载相对路径
-                .addClasspathResource("process/event-time-border-test01.bpmn20.xml")
-                .name("事件-边界事件-测试01")
+                .addClasspathResource("process/event-msg-start-test01.bpmn20.xml")
+                .name("事件-消息启动流程-测试01")
                 .deploy();
         String deployId = deploy.getId();
         System.out.printf("部署ID: %s\n", deployId);
@@ -84,8 +81,9 @@ class EventBorderTimeTest01 {
         //使用流程定义id启动流程
         ProcessEngine defaultProcessEngine = ProcessEngines.getDefaultProcessEngine();
         RuntimeService runtimeService = defaultProcessEngine.getRuntimeService();
+        //启动时 使用定义的消息name来启动
         ProcessInstance processInstance = runtimeService
-                .startProcessInstanceById(processDefinitionId);
+                .startProcessInstanceByMessage("hello");
         /**
          *
          */

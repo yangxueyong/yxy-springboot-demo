@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <message id="msg-no-stop" name="msg-no-stop"></message>
+  <message id="msg-stop" name="msg-stop"></message>
+  <process id="event-msg-border-test01" name="event-msg-border-test01" isExecutable="true">
+    <documentation>event-msg-border-test01</documentation>
+    <startEvent id="startEvent1" name="事件-边界消息测试-开始"></startEvent>
+    <userTask id="sid-1538818A-BA1D-43A2-B7DF-FE95B878BDB6" name="事件-边界消息测试-审批1"></userTask>
+    <sequenceFlow id="sid-D2D8722F-815D-4865-81AD-BA34D2EA9734" sourceRef="startEvent1" targetRef="sid-1538818A-BA1D-43A2-B7DF-FE95B878BDB6"></sequenceFlow>
+    <userTask id="sid-F54B2394-2299-4393-AFFD-9A99D3A9E348" name="事件-边界消息测试-审批2"></userTask>
+    <sequenceFlow id="sid-7DAD123D-59F6-4E72-8E5E-FCBB53D341DE" sourceRef="sid-1538818A-BA1D-43A2-B7DF-FE95B878BDB6" targetRef="sid-F54B2394-2299-4393-AFFD-9A99D3A9E348"></sequenceFlow>
+    <endEvent id="sid-429A6390-291D-4A63-9E54-38397981033E" name="事件-边界消息测试-结束"></endEvent>
+    <sequenceFlow id="sid-4907B83C-B6AF-43B5-A859-2AC8007C5A2A" sourceRef="sid-F54B2394-2299-4393-AFFD-9A99D3A9E348" targetRef="sid-429A6390-291D-4A63-9E54-38397981033E"></sequenceFlow>
+    <boundaryEvent id="sid-81819F54-BF7D-4862-B206-BF4A46CAB781" attachedToRef="sid-1538818A-BA1D-43A2-B7DF-FE95B878BDB6" cancelActivity="false">
+      <messageEventDefinition messageRef="msg-no-stop"></messageEventDefinition>
+    </boundaryEvent>
+    <userTask id="sid-34AB05A5-681E-4BC6-A3AD-5A1CE00891D6" name="事件-边界消息测试-非中断审批"></userTask>
+    <sequenceFlow id="sid-092086EC-4E15-4309-B5FD-7BEA809F508E" sourceRef="sid-81819F54-BF7D-4862-B206-BF4A46CAB781" targetRef="sid-34AB05A5-681E-4BC6-A3AD-5A1CE00891D6"></sequenceFlow>
+    <sequenceFlow id="sid-49DF7D3D-3E9E-4E8B-B81B-90CA783EA859" sourceRef="sid-34AB05A5-681E-4BC6-A3AD-5A1CE00891D6" targetRef="sid-429A6390-291D-4A63-9E54-38397981033E"></sequenceFlow>
+    <userTask id="sid-6EE9A754-F1D1-4D85-B9FA-A071F87DC4F1" name="事件-边界消息测试-中断审批"></userTask>
+    <sequenceFlow id="sid-17CDC1D1-6EBB-47B2-A1CE-CEC524C57A96" sourceRef="sid-27BF77C5-13AA-49D8-A5BB-7AF7E5ADB62B" targetRef="sid-6EE9A754-F1D1-4D85-B9FA-A071F87DC4F1"></sequenceFlow>
+    <boundaryEvent id="sid-27BF77C5-13AA-49D8-A5BB-7AF7E5ADB62B" attachedToRef="sid-F54B2394-2299-4393-AFFD-9A99D3A9E348" cancelActivity="true">
+      <messageEventDefinition messageRef="msg-stop"></messageEventDefinition>
+    </boundaryEvent>
+    <sequenceFlow id="sid-D446C454-467D-4F06-9A57-860BF7B239C0" sourceRef="sid-6EE9A754-F1D1-4D85-B9FA-A071F87DC4F1" targetRef="sid-429A6390-291D-4A63-9E54-38397981033E"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_event-msg-border-test01">
+    <bpmndi:BPMNPlane bpmnElement="event-msg-border-test01" id="BPMNPlane_event-msg-border-test01">
+      <bpmndi:BPMNShape bpmnElement="startEvent1" id="BPMNShape_startEvent1">
+        <omgdc:Bounds height="30.0" width="30.0" x="100.0" y="163.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-1538818A-BA1D-43A2-B7DF-FE95B878BDB6" id="BPMNShape_sid-1538818A-BA1D-43A2-B7DF-FE95B878BDB6">
+        <omgdc:Bounds height="80.0" width="100.0" x="240.0" y="138.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-F54B2394-2299-4393-AFFD-9A99D3A9E348" id="BPMNShape_sid-F54B2394-2299-4393-AFFD-9A99D3A9E348">
+        <omgdc:Bounds height="80.0" width="100.0" x="496.11931980161535" y="138.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-429A6390-291D-4A63-9E54-38397981033E" id="BPMNShape_sid-429A6390-291D-4A63-9E54-38397981033E">
+        <omgdc:Bounds height="28.0" width="28.0" x="735.0" y="164.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-81819F54-BF7D-4862-B206-BF4A46CAB781" id="BPMNShape_sid-81819F54-BF7D-4862-B206-BF4A46CAB781">
+        <omgdc:Bounds height="30.0" width="30.0" x="268.7727475032461" y="203.47714122890062"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-34AB05A5-681E-4BC6-A3AD-5A1CE00891D6" id="BPMNShape_sid-34AB05A5-681E-4BC6-A3AD-5A1CE00891D6">
+        <omgdc:Bounds height="80.0" width="100.0" x="233.77274750324608" y="300.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-6EE9A754-F1D1-4D85-B9FA-A071F87DC4F1" id="BPMNShape_sid-6EE9A754-F1D1-4D85-B9FA-A071F87DC4F1">
+        <omgdc:Bounds height="80.0" width="100.0" x="495.0" y="15.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-27BF77C5-13AA-49D8-A5BB-7AF7E5ADB62B" id="BPMNShape_sid-27BF77C5-13AA-49D8-A5BB-7AF7E5ADB62B">
+        <omgdc:Bounds height="30.00000000000003" width="30.0" x="532.2386396032307" y="122.7044871418473"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-4907B83C-B6AF-43B5-A859-2AC8007C5A2A" id="BPMNEdge_sid-4907B83C-B6AF-43B5-A859-2AC8007C5A2A">
+        <omgdi:waypoint x="596.1193198016153" y="178.0"></omgdi:waypoint>
+        <omgdi:waypoint x="735.0" y="178.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-D2D8722F-815D-4865-81AD-BA34D2EA9734" id="BPMNEdge_sid-D2D8722F-815D-4865-81AD-BA34D2EA9734">
+        <omgdi:waypoint x="130.0" y="178.0"></omgdi:waypoint>
+        <omgdi:waypoint x="240.0" y="178.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-092086EC-4E15-4309-B5FD-7BEA809F508E" id="BPMNEdge_sid-092086EC-4E15-4309-B5FD-7BEA809F508E">
+        <omgdi:waypoint x="283.7727475032461" y="233.47714122890062"></omgdi:waypoint>
+        <omgdi:waypoint x="283.7727475032461" y="300.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-D446C454-467D-4F06-9A57-860BF7B239C0" id="BPMNEdge_sid-D446C454-467D-4F06-9A57-860BF7B239C0">
+        <omgdi:waypoint x="595.0" y="55.0"></omgdi:waypoint>
+        <omgdi:waypoint x="749.0" y="55.0"></omgdi:waypoint>
+        <omgdi:waypoint x="749.0" y="164.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-49DF7D3D-3E9E-4E8B-B81B-90CA783EA859" id="BPMNEdge_sid-49DF7D3D-3E9E-4E8B-B81B-90CA783EA859">
+        <omgdi:waypoint x="333.7727475032461" y="340.0"></omgdi:waypoint>
+        <omgdi:waypoint x="749.0" y="340.0"></omgdi:waypoint>
+        <omgdi:waypoint x="749.0" y="192.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-17CDC1D1-6EBB-47B2-A1CE-CEC524C57A96" id="BPMNEdge_sid-17CDC1D1-6EBB-47B2-A1CE-CEC524C57A96">
+        <omgdi:waypoint x="546.8327692504577" y="122.70997917203582"></omgdi:waypoint>
+        <omgdi:waypoint x="546.082717361824" y="95.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-7DAD123D-59F6-4E72-8E5E-FCBB53D341DE" id="BPMNEdge_sid-7DAD123D-59F6-4E72-8E5E-FCBB53D341DE">
+        <omgdi:waypoint x="340.0" y="178.0"></omgdi:waypoint>
+        <omgdi:waypoint x="496.11931980161535" y="178.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

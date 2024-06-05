@@ -4,6 +4,7 @@ package com.example.yxy;
 import org.activiti.engine.*;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.junit.jupiter.api.Test;
@@ -13,16 +14,13 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 /**
- * 边界事件测试
- *
- * 中断事件 表示 中断当前节点的执行，并执行边界事件。
- * 非中断事件 表示 不中断当前节点的执行，并执行边界事件。
+ * 消息时间放边界
  *
  * @author yxy
  * @date 2024/05/29
  */
 @SpringBootTest
-class EventBorderTimeTest01 {
+class MsgEventBorderTest01 {
 
 
     /**
@@ -34,18 +32,16 @@ class EventBorderTimeTest01 {
         ProcessEngine defaultProcessEngine = ProcessEngines.getDefaultProcessEngine();
         RepositoryService repositoryService = defaultProcessEngine.getRepositoryService();
         Deployment deploy = repositoryService.createDeployment()
-                .key("event-border-time-test01")
+                .key("event-msg-border-test01")
                 //加载相对路径
-                .addClasspathResource("process/event-time-border-test01.bpmn20.xml")
-                .name("事件-边界事件-测试01")
+                .addClasspathResource("process/event-msg-border-test01.bpmn20.xml")
+                .name("事件-消息边界测试-测试01")
                 .deploy();
         String deployId = deploy.getId();
         System.out.printf("部署ID: %s\n", deployId);
         System.out.printf("部署Name: %s\n", deploy.getName());
         System.out.printf("部署Key: %s\n", deploy.getKey());
         queryDeploy(deployId);
-
-        Thread.sleep(Integer.MAX_VALUE);
     }
 
     /**
@@ -84,6 +80,7 @@ class EventBorderTimeTest01 {
         //使用流程定义id启动流程
         ProcessEngine defaultProcessEngine = ProcessEngines.getDefaultProcessEngine();
         RuntimeService runtimeService = defaultProcessEngine.getRuntimeService();
+        //启动时 使用定义的消息name来启动
         ProcessInstance processInstance = runtimeService
                 .startProcessInstanceById(processDefinitionId);
         /**
@@ -110,7 +107,12 @@ class EventBorderTimeTest01 {
                 .list();
         for (Task task : taskList) {
             /**
-             *
+             * 任务ID: 7b5ba06f-22d7-11ef-9f73-aa82f9a380a8
+             * 任务名称: 事件-边界消息测试-审批1
+             * 任务流程实例ID: 7b5add19-22d7-11ef-9f73-aa82f9a380a8
+             * 任务流程定义ID: event-msg-border-test01:1:7b592f68-22d7-11ef-9f73-aa82f9a380a8
+             * 任务创建时间: Wed Jun 05 09:03:55 CST 2024
+             * 任务办理人: null
              */
             String taskId = task.getId();
             System.out.printf("任务ID: %s\n", taskId);
@@ -120,26 +122,45 @@ class EventBorderTimeTest01 {
             System.out.printf("任务创建时间: %s\n", task.getCreateTime());
             System.out.printf("任务办理人: %s\n", task.getAssignee());
             System.out.printf("====================================\n");
-
-            taskService.complete(taskId);
         }
     }
 
 
 
+//    /**
+//     * 完成任务  节点1
+//     */
+//    @Test
+//    void completeTask(){
+//        ProcessEngine defaultProcessEngine = ProcessEngines.getDefaultProcessEngine();
+//        TaskService taskService = defaultProcessEngine.getTaskService();
+//        String taskId = "0dfc94fc-22d5-11ef-a34a-aa82f9a380a8";
+//
+//        //其实不拾取也可以完成任务
+//        taskService.complete(taskId);
+//    }
+
+
     /**
-     * 完成任务  节点1
+     * 完成任务  边界消息
      */
     @Test
-    void completeTask(){
+    void completeMiddleEventMsgTask(){
         ProcessEngine defaultProcessEngine = ProcessEngines.getDefaultProcessEngine();
-        TaskService taskService = defaultProcessEngine.getTaskService();
-        String taskId = "1b9ec790-1d7e-11ef-bcb7-aa82f9a380a8";
+        RuntimeService runtimeService = defaultProcessEngine.getRuntimeService();
+        List<Execution> executionList = runtimeService.createExecutionQuery()
+                .processInstanceId("7b5add19-22d7-11ef-9f73-aa82f9a380a8")
+                .onlyChildExecutions()
+                .list();
+        for (int i = 0; i < executionList.size(); i++) {
+            Execution execution = executionList.get(i);
+            try {
+                runtimeService.messageEventReceived("msg-no-stop", execution.getId());
+            }catch (Exception e){
 
-        //其实不拾取也可以完成任务
-        taskService.complete(taskId);
+            }
+        }
     }
-
 
 
 }
