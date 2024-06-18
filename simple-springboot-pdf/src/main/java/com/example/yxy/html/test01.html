@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<head>
+    <title>
+    </title>
+</head>
+
+<body>
+<table border="1" cellpadding="0" cellspacing="0" style=" font-family: 'microsoft yahei'">
+    <tbody>
+    <tr>
+        <td colspan="7" align="center">个人客户营销宣传物品需求备案表</td>
+    </tr>
+    <tr>
+        <td style="width: 10%">机构名称</td>
+        <td colspan="6">${orgName}</td>
+    </tr>
+    <tr>
+        <td>计划总额</td>
+        <td colspan="6">${sumMoney}</td>
+    </tr>
+    <tr>
+        <td>经办人</td>
+        <td colspan="3">${oneJbrUserName}</td>
+        <td>联系电话</td>
+        <td colspan="2">${oneJbrUserPhone}</td>
+    </tr>
+    <tr>
+        <td rowspan="2">事由</td>
+        <td colspan="6">需求明细</td>
+    </tr>
+    <tr>
+        <td align="center" style="width: 15%">序号</td>
+        <td align="center" style="width: 15%">产品类别</td>
+        <td align="center" style="width: 15%">产品品牌及规格</td>
+        <td align="center" style="width: 15%">单价</td>
+        <td align="center" style="width: 15%">数量</td>
+        <td align="center" style="width: 15%">小计金额</td>
+    </tr>
+    <#if orderGoodsList??>
+        <#list orderGoodsList as orderGoods>
+            <#if orderGoods_index == 0>
+                <tr>
+                    <td rowspan="${orderGoodsList?size}"></td>
+                    <td>${orderGoods_index + 1}</td>
+                    <td>${orderGoods.goodsType}</td>
+                    <td>${orderGoods.goodsBrand}</td>
+                    <td>${orderGoods.goodsPrice}</td>
+                    <td>${orderGoods.goodsNum}</td>
+                    <td>${orderGoods.sumMoney}</td>
+                </tr>
+            <#else>
+                <tr>
+                    <td>${orderGoods_index + 1}</td>
+                    <td>${orderGoods.goodsType}</td>
+                    <td>${orderGoods.goodsBrand}</td>
+                    <td>${orderGoods.goodsPrice}</td>
+                    <td>${orderGoods.goodsNum}</td>
+                    <td>${orderGoods.sumMoney}</td>
+                </tr>
+            </#if>
+        </#list>
+    </#if>
+
+    <tr>
+        <td colspan="7" align="left">申请机构意见</td>
+    </tr>
+    <tr>
+        <td colspan="7" align="left">经办人</td>
+    </tr>
+    <tr>
+        <td colspan="7" align="left">申请单位有权审批人意见：</td>
+    </tr>
+    <tr>
+        <td colspan="7" align="left">签字：</td>
+    </tr>
+    <tr>
+        <td colspan="7" align="left">总行业务条线部室意见：</td>
+    </tr>
+    <tr>
+        <td colspan="7" align="left">经办人：</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

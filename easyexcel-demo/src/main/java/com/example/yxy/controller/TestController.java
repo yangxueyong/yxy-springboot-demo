@@ -2,8 +2,10 @@ package com.example.yxy.controller;
 
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.fastjson2.JSON;
+import com.example.yxy.entity.StudentExportVo;
 import com.example.yxy.entity.Test;
 import com.example.yxy.excel.*;
+import com.example.yxy.test.EasyExcelDemoTest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,6 +43,12 @@ public class TestController {
                 .headRowNumber(0).doRead();
 
         return ids.size() + "";
+    }
+
+    @RequestMapping("/saveDataByEasyexcel2")
+    private void saveDataByEasyexcel2() throws Exception {
+        List<StudentExportVo> list = EasyExcelDemoTest.getStudentExportVos();
+        EasyExcel.write("test.xlsx", StudentExportVo.class).sheet("学生信息").doWrite(list);
     }
 
     /**
