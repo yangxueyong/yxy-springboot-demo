@@ -19,10 +19,9 @@ class PdfDemoApplicationTests {
     void html2pdf() throws Exception {
         // 循环添加
         List<OrderGoods> orderGoodsList = new ArrayList<>();
-        orderGoodsList.add(new OrderGoods("食品类","红蜻蜓","53.2",new BigDecimal(10),new BigDecimal(523)));
-        orderGoodsList.add(new OrderGoods("食品类","红蜻蜓","53.2",new BigDecimal(10),new BigDecimal(523)));
-        orderGoodsList.add(new OrderGoods("食品类","红蜻蜓","53.2",new BigDecimal(10),new BigDecimal(523)));
-        orderGoodsList.add(new OrderGoods("食品类","红蜻蜓","53.2",new BigDecimal(10),new BigDecimal(523)));
+        for (int i = 0; i < 80; i++) {
+            orderGoodsList.add(new OrderGoods("食品类","红蜻蜓" + i,"53.2",new BigDecimal(10),new BigDecimal(523)));
+        }
 
         HashMap<String, Object> data = new HashMap<>();
         data.put("orderGoodsList", orderGoodsList);
@@ -48,5 +47,8 @@ class PdfDemoApplicationTests {
 
         //pdf加水印
         WaterMarkUtil.addwaterMark(pdfPath + "/" + fileName, pdfPath + "/加水印之后.pdf", "测试水印");
+
+
+        WaterMarkUtil.pdfSynPng(pdfPath + "/加水印之后.pdf",pdfPath + "/加水印之后-图片.pdf",pdfPath + "/water.png");
     }
 }

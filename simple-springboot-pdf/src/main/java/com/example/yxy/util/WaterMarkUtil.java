@@ -10,9 +10,7 @@ import com.itextpdf.text.pdf.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 
 /**
@@ -144,4 +142,47 @@ public class WaterMarkUtil {
             }
         }
     }
+
+    /**
+     *
+     * @param pdfFilePath 被合成的PDF
+     * @param generateFinalPdfPath 生成新的PDF
+     * @param imgPath 签名PNG
+     */
+    public static void  pdfSynPng(String pdfFilePath, String generateFinalPdfPath, String imgPath) {
+        try {
+            InputStream inputStream = new FileInputStream(new File(imgPath));
+            File file = new File(pdfFilePath);
+            FileOutputStream outputStream = new FileOutputStream(generateFinalPdfPath);
+            PdfReader reader = new PdfReader(new FileInputStream(file));
+            PdfStamper stamper = new PdfStamper(reader, outputStream);
+            //将签名图片放在pdf文件的最后一页
+            int numberOfPages = reader.getNumberOfPages();
+            PdfContentByte over = stamper.getOverContent(numberOfPages);
+
+            int n;
+            byte[] buffer = new byte[4096];
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+            while (-1 != (n = inputStream.read(buffer))) {
+                output.write(buffer, 0, n);
+            }
+            //签名图片
+            com.itextpdf.text.Image contractSealImg = com.itextpdf.text.Image.getInstance(output.toByteArray());
+            over.saveState();
+            PdfGState pdfGState = new PdfGState();
+            over.setGState(pdfGState);
+            contractSealImg.setRotationDegrees(90);
+            contractSealImg.setAbsolutePosition(350,30);  //设置图片位置
+            contractSealImg.scaleAbsolute(100, 180);  //设置图片大小
+            over.addImage(contractSealImg);  //将图片添加到pdf文件
+            over.restoreState();
+            stamper.setFormFlattening(true);
+            stamper.close();
+            reader.close();
+            outputStream.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 }
